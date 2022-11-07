@@ -1,0 +1,22 @@
+.programm__edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/*.grid-rows-4 {*/
+/*    grid-template-rows: auto;*/
+/*    */
+/*}*/
+
+.partPhoto {
+    /*border-radius: var(--rounded-box, 1rem);*/
+}
+
+.search__photo {
+
+}
+
+.search__photo:hover {
+    width: 200px;
+}
