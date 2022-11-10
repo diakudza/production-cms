@@ -24,10 +24,10 @@ class SearchProgramRequest extends FormRequest
     public function rules()
     {
         return [
-            'partType' => 'nullable|numeric',
+            'partType' => 'nullable|numeric|exists:partTypes,id',
             'partNumber' => 'nullable|string',
-            'machine_id' => 'nullable|numeric',
-            'author' => 'nullable|numeric',
+            'machine_id' => 'nullable|numeric|exists:machines,id',
+            'author' => 'nullable|numeric|exists:users,id',
             'sortBy' => 'nullable|string',
             'itemOnPage' => 'nullable|numeric',
         ];

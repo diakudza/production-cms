@@ -8,8 +8,8 @@
 
         @include('components.searchForm')
 
-        @if(@isset($result) && $result->count())
-            <div class="">
+        @if(isset($result) && $result->count() && !isset($searchIndex))
+            <div>
                 <table id="sortable" class="table w-full table-zebra mt-10">
 
                     <th class="w-15"><a class="jsLink" href="&sortBy=partNumber">Номер</a></th>
@@ -52,11 +52,19 @@
                 {{$result->links()}}
             </div>
 
-        @else
-            <div class="flex justify-center mt-10 ">
+        @elseif(isset($result) && !isset($searchIndex))
+            <div class="grid justify-items-center mt-10 ">
                 <p class="text-3xl">Нет результатов поиска</p>
+                <p class="mt-5">Попробуйте изменить параметры запроса</p>
             </div>
         @endif
+
+        @isset($searchIndex)
+            <div class="grid justify-items-center mt-10 ">
+                <p class="text-3xl ">Начните поиск</p>
+                <p class="mt-5">Ищите как по отдельным столбцам, так и по их комбинациям</p>
+            </div>
+        @endisset
     </div>
 
     <script>
