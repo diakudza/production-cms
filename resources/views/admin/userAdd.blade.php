@@ -1,4 +1,4 @@
-@extends('layouts.admin_app')
+@extends('layouts.app')
 
 @section('title', 'Пользователи')
 
@@ -10,9 +10,9 @@
                 <div class=" w-100 bg-base-100 ">
 
                     <figure>
-                        <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Vite::asset('public/storage/image/profile/thumbnail/'. $user->avatar) }}
+                        <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Storage::url('image/profile/'. $user->avatar) }}
                                      @else
-                                    {{ Vite::asset('public/storage/image/no_image.png') }}
+                                    {{ Storage::url('image/no_image.png') }}
                                     @endif"
                              alt="Shoes"/>
 
@@ -84,9 +84,11 @@
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserStatus::FIRED }}"
-                            @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен</option>
+                            @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен
+                        </option>
                         <option value="{{ \App\Enums\UserStatus::WORKS }}"
-                            @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает</option>
+                            @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает
+                        </option>
                     </select>
                 </div>
 
@@ -97,9 +99,11 @@
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                            @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор</option>
+                            @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор
+                        </option>
                         <option value="{{ \App\Enums\UserRole::USER }}"
-                            @selected($user->status == \App\Enums\UserRole::USER)>Пользователь</option>
+                            @selected($user->status == \App\Enums\UserRole::USER)>Пользователь
+                        </option>
                     </select>
                 </div>
 

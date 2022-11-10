@@ -1,4 +1,4 @@
-@extends('layouts.admin_app')
+@extends('layouts.app')
 
 @section('title', 'Пользователи')
 
@@ -26,19 +26,23 @@
                     </a>
                 </td>
                 <td>
-                    <div class=" w-20 bg-base-100 ">
+                    <div class="w-20">
                         <figure>
-                            <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Vite::asset('public/storage/image/profile/thumbnail/'. $user->avatar) }}
+                            <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Storage::url('image/profile/thumbnail/'. $user->avatar) }}
                                      @else
-                                    {{ Vite::asset('public/storage/image/no_image.png') }}
+                                    {{ Storage::url('image/no_image.png') }}
                                     @endif"
-                                 alt="Shoes"/>
+                                 alt="UserPhoto"/>
                         </figure>
                     </div>
                 </td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->employmentDate }}</td>
-                <td> @if (\Carbon\Carbon::now()->week() % $user->shift->week == 0) первая @else вторая@endif</td>
+                <td> @if (\Carbon\Carbon::now()->week() % 2 != $user->shift->week)
+                        первая
+                    @else
+                        вторая
+                    @endif</td>
                 <td>{{ $user->position->title ?? null }}</td>
                 <td>@if($user->status == 'FIRED')
                         уволен

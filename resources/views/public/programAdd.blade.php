@@ -60,7 +60,8 @@
                             <span>Материал</span>
                         </div>
                         <select name="material_id"
-                                class="select select-bordered col-start-2 col-end-3">
+                                class="select select-bordered col-start-2 col-end-3
+                                @error('material_id') select-error @enderror">
                             <option disabled @if (!old('material_id'))selected @endif >Материал</option>
                             @foreach($materials as $material)
                                 <option
@@ -88,7 +89,7 @@
 
                 <div class="mt-10">
                 <textarea name="description"
-                          class="textarea textarea-bordered resize-none w-full h-3/4 mb-10" placeholder="Описание"></textarea>
+                    class="textarea textarea-bordered resize-none w-full h-3/4 mb-10" placeholder="Описание"></textarea>
                 </div>
 
                 <div class="v-full flex justify-between ">
@@ -104,16 +105,20 @@
             <div class="relative">
                 <input type="text" name="programNameForHead1"
                        class="input input-bordered  max-w-xs @error('programNameForHead1') input-error @enderror"
-                       placeholder="Имя программы 1" value="{{ old('programNameForHead1')  }}">
-                <textarea id="programText1" class="textarea textarea-bordered w-full h-3/4"
-                          placeholder="Bio" name="programTextForHead1">{{ old('programTextForHead1') }}</textarea>
+                       placeholder="Номер в формате O1111"
+                       pattern="[O]{1}[0-9]{4}"
+                       value="{{ old('programNameForHead1')  }}">
+                <textarea id="programText1" class="textarea textarea-bordered w-full h-3/4 mt-1 "
+                          placeholder="Program code" name="programTextForHead1">{{ old('programTextForHead1') }}</textarea>
             </div>
             <div class="relative">
                 <input type="text" name="programNameForHead2"
                        class="input input-bordered  max-w-xs @error('programNameForHead2') input-error @enderror"
-                       placeholder="Имя программы 2" value="{{ old('programNameForHead2')  }}">
-                <textarea id="programText2" class="textarea textarea-bordered w-full h-3/4"
-                          placeholder="Bio" name="programTextForHead2">{{ old('programTextForHead2') }}</textarea>
+                       placeholder="Номер в формате O1111"
+                       pattern="[O]{1}[0-9]{4}"
+                       value="{{ old('programNameForHead2')  }}">
+                <textarea id="programText2" class="textarea textarea-bordered w-full h-3/4 mt-1 "
+                          placeholder="Program code" name="programTextForHead2">{{ old('programTextForHead2') }}</textarea>
             </div>
 
         </div>

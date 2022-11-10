@@ -1,4 +1,4 @@
-@extends('layouts.admin_app')
+@extends('layouts.app')
 
 @section('title', 'Пользователи')
 
@@ -10,11 +10,11 @@
                 <div class=" w-100 bg-base-100 ">
 
                     <figure>
-                        <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Vite::asset('public/storage/image/profile/thumbnail/'. $user->avatar) }}
+                        <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Storage::url('image/profile/thumbnail/'. $user->avatar) }}
                                      @else
-                                    {{ Vite::asset('public/storage/image/no_image.png') }}
+                                    {{ Storage::url('image/no_image.png') }}
                                     @endif"
-                             alt="Shoes"/>
+                             alt="UserPhoto"/>
 
                     </figure>
                     <input type="file"
@@ -63,7 +63,11 @@
                     <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
                         @foreach($shifts as $shift)
                             <option value="{{ $shift->id }}" @selected($user->shift_id == $shift->id)>
-                                {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % $shift->week == 0) первая @else вторая@endif
+                                {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % 2 )
+                                    первая
+                                @else
+                                    вторая
+                                @endif
                             </option>
                         @endforeach
                     </select>
@@ -86,9 +90,11 @@
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserStatus::FIRED }}"
-                            @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен</option>
+                            @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен
+                        </option>
                         <option value="{{ \App\Enums\UserStatus::WORKS }}"
-                            @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает</option>
+                            @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает
+                        </option>
                     </select>
                 </div>
 
@@ -99,9 +105,11 @@
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                            @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор</option>
+                            @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор
+                        </option>
                         <option value="{{ \App\Enums\UserRole::USER }}"
-                            @selected($user->status == \App\Enums\UserRole::USER)>Пользователь</option>
+                            @selected($user->status == \App\Enums\UserRole::USER)>Пользователь
+                        </option>
                     </select>
                 </div>
 
@@ -123,10 +131,18 @@
                 </div>
 
                 <div class="grid grid-cols-2 w-full">
-                    <button href="" class="btn w-100">Обновить</button>
-                    <a href="" class="btn">Удалить</a>
+                    <button href="" class="btn btn-success w-100">Обновить</button>
+                    <label for="my-modal" class="btn btn-error">Удалить</label>
                 </div>
             </div>
         </div>
     </form>
+
+    @include('components.modalDelete', [
+        'message' => "Вы желаете удалить пользователя $user->name",
+        'route' => 'admin.user.destroy',
+        'id' => $user->id
+        ])
+
 @endsection
+
