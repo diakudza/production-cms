@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\MachineController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
+use App\Http\Controllers\Admin\MaterialController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\Admin\ShiftController;
@@ -36,6 +37,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
     Route::resource('position', PositionController::class);
     Route::resource('machine', MachineController::class);
     Route::resource('news', NewsController::class);
+    Route::resource('material', MaterialController::class);
 
     Route::get('/', AdminMainController::class)->name('index');
 });

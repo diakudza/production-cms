@@ -40,9 +40,16 @@
                                 </div>
                             </td>
                             <td>{{ $program->partType->title ?? 'Не указано' }}</td>
-                            <td>{{ $program->machine->title ?? 'Не указано' }}</td>
+                            <td>{{ $program->machine->title ?? 'Не указано' }} </td>
                             <td>{{ $program->user->name ?? 'Не указано' }}</td>
-                            <td>{{ $program->material->title ?? 'Не указано' }}</td>
+                            <td>
+                                <div class="h-full flex gap-2">
+                                    @isset($program->material->color)
+                                        @include('components.materialColour' , ['color' => $program->material->color] )
+                                    @endisset
+                                    {{ $program->material->title ?? 'Не указано' }}
+                                </div>
+                            </td>
                             <td>{{ $program->created_at->format('Y-m-d') }}</td>
                         </tr>
 

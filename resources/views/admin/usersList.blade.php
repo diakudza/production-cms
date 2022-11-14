@@ -4,22 +4,22 @@
 
 @section('content')
     <a class="btn gap-2" href="{{ route('admin.user.create') }}">Новый пользователь</a>
-    <table class="table table-zebra">
-        <th>
-        <td>Таб. ном.</td>
-        <td>Фото</td>
-        <td>Фио</td>
-        <td>Дата добавления</td>
-        <td>На этой недели</td>
-        <td>Должность</td>
-        <td>Статус</td>
-        <td>Роль</td>
 
-        </th>
+    <table class="table table-zebra mt-5">
+
+        <th>Таб. ном.</th>
+        <th>Фото</th>
+        <th>Фио</th>
+        <th>Дата добавления</th>
+        <th>На этой недели</th>
+        <th>Должность</th>
+        <th>Статус</th>
+        <th>Роль</th>
+
+
         @foreach($users as $user)
 
             <tr>
-                <td></td>
                 <td>
                     <a href="{{ route('admin.user.show', $user->id) }}">
                         {{ $user->tabNumber }}
@@ -29,7 +29,7 @@
                     <div class="w-20">
                         <figure>
                             <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Storage::url('image/profile/thumbnail/'. $user->avatar) }}
-                                     @else
+                                    @else
                                     {{ Storage::url('image/no_image.png') }}
                                     @endif"
                                  alt="UserPhoto"/>

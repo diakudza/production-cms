@@ -9,8 +9,11 @@ class Material extends Model
 {
     use HasFactory;
 
-    public function programms()
+    protected $fillable = ['title', 'description', 'color'];
+
+    public function programs()
     {
         return $this->hasMany(Program::class);
     }
+
 }

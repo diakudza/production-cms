@@ -1,22 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Пользователи')
+@section('title', "Новый пользователь")
 
 @section('content')
-    <form action="{{ route('admin.user.create') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <div class=" w-100 bg-base-100 ">
 
-                    <figure>
-                        <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Storage::url('image/profile/'. $user->avatar) }}
-                                     @else
-                                    {{ Storage::url('image/no_image.png') }}
-                                    @endif"
-                             alt="Shoes"/>
-
-                    </figure>
                     <input type="file"
                            name="avatar"
                            class="file-input file-input-bordered w-full max-w-xs
@@ -41,7 +33,7 @@
                     </div>
                     <input type="text" name="name"
                            class="select select-bordered col-start-2 col-end-5 @error('name') select-error @enderror"
-                           placeholder="D"
+                           placeholder="Фио"
                            value="{{ old('name') }}">
                 </div>
 
@@ -60,10 +52,16 @@
                     <div class="programm__edit">
                         <span>Смена</span>
                     </div>
-                    <select name="shift" class="select select-bordered col-start-2 col-end-5">
-                        <option value="0" @selected($user->shift == 0)>0</option>
-                        <option value="1" @selected($user->shift == 1)>1</option>
-                        <option value="2" @selected($user->shift == 2)>2</option>
+                    <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
+                        @foreach($shifts as $shift)
+                            <option value="{{ $shift->id }}" @selected(old('shift_id') == $shift->id)>
+                                {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % 2 )
+                                    первая
+                                @else
+                                    вторая
+                                @endif
+                            </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="grid grid-cols-4 ">
@@ -73,8 +71,8 @@
 
                     <input type="date" name="employmentDate"
                            class="select select-bordered  col-start-2 col-end-5 @error('employmentDate') select-error @enderror"
-                           placeholder="Табельный номер"
-                           value="{{ $user->employmentDate }}">
+                           placeholder="Дата устройства"
+                           value="{{ old('employmentDate') }}">
                 </div>
 
                 <div class="grid grid-cols-4 ">
@@ -84,10 +82,10 @@
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserStatus::FIRED }}"
-                            @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен
+                            @selected(old('status') == \App\Enums\UserStatus::FIRED)>Уволен
                         </option>
                         <option value="{{ \App\Enums\UserStatus::WORKS }}"
-                            @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает
+                            @selected(old('status') == \App\Enums\UserStatus::WORKS)>Работает
                         </option>
                     </select>
                 </div>
@@ -99,10 +97,10 @@
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                            @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор
+                            @selected(old('role') == \App\Enums\UserRole::ADMIN)>Администратор
                         </option>
                         <option value="{{ \App\Enums\UserRole::USER }}"
-                            @selected($user->status == \App\Enums\UserRole::USER)>Пользователь
+                            @selected(old('role') == \App\Enums\UserRole::USER)>Пользователь
                         </option>
                     </select>
                 </div>
@@ -115,20 +113,38 @@
                     <input type="text" name="phone"
                            class="select select-bordered  col-start-2 col-end-5 @error('phone') select-error @enderror"
                            placeholder="+7(222)1234567"
-                           value="{{ $user->phone }}">
+                           value="{{ old('phone') }}">
+                </div>
+
+                <div class="grid grid-cols-4 ">
+                    <div class="programm__edit">
+                        <span>Пароль</span>
+                    </div>
+
+                    <input type="password" name="password"
+                           class="select select-bordered  col-start-2 col-end-5 @error('phone') select-error @enderror"
+                           placeholder="Пароль"
+                           value="">
+                    <input type="password" name="password_confirmation"
+                           class="select select-bordered  col-start-2 col-end-5 @error('phone') select-error @enderror"
+                           placeholder="Подтверждение парола"
+                           value="">
                 </div>
 
                 <div class="v-full mt-5">
                 <textarea name="description"
                           class="textarea textarea-bordered resize-none w-full h-3/4 mb-10"
-                          placeholder="Описание не указанно">{{ $user->description ?? NULL}}</textarea>
+                          placeholder="Описание не указанно">{{ old('description') }}</textarea>
                 </div>
 
                 <div class="grid grid-cols-2 w-full">
-                    <button href="" class="btn w-100">Обновить</button>
-                    <a href="" class="btn">Удалить</a>
+                    <button href="" class="btn btn-success w-100">Добавить</button>
                 </div>
             </div>
         </div>
     </form>
+
+
+
 @endsection
+

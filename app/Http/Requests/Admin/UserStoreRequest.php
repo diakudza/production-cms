@@ -25,10 +25,11 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'tabNumber' => ['required', 'numeric', 'min:4'],
+            'password' => ['required', 'min:4', 'confirmed'],
             'name' => ['required', 'string', 'min:5'],
             'position_id' => ['required', 'numeric', 'exists:positions,id'],
-            'shift_id' => ['nullable', 'numeric', 'in:0,1,2'],
-            'employmentDate' => ['nullable', 'date'],
+            'shift_id' => ['required', 'numeric', 'in:0,1,2'],
+            'employmentDate' => ['required', 'date'],
             'status' => ['required', 'in:WORKS,FIRED'],
             'role' => ['nullable', 'in:ADMIN,USER'],
             'phone' => ['nullable', 'string'],

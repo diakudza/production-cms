@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Пользователи')
+@section('title', "Пользователь $user->name")
 
 @section('content')
     <form action="{{ route('admin.user.update', $user->id) }}" method="POST" enctype="multipart/form-data">

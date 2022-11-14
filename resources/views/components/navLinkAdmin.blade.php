@@ -7,5 +7,7 @@
    class="btn @if(request()->route()->getName() == 'admin.shift.index') btn-active @endif">Смены</a>
 <a href="{{ route('admin.position.index') }}"
    class="btn @if(request()->route()->getName() == 'admin.position.index') btn-active @endif">Должности</a>
+<a href="{{ route('admin.material.index') }}"
+   class="btn @if(request()->route()->getName() == 'admin.material.index') btn-active @endif">Материалы</a>
 <a href="{{ route('admin.news.index') }}"
    class="btn @if(request()->route()->getName() == 'admin.news.index') btn-active @endif">Новости</a>

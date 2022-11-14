@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ShiftStoreRequest;
 use App\Http\Requests\Admin\ShiftUpdateRequest;
 use App\Models\Shift;
-use Illuminate\Http\Request;
 
 class ShiftController extends Controller
 {
@@ -16,11 +15,6 @@ class ShiftController extends Controller
         return view('admin.shift', [
             'shifts' => Shift::with('users')->get(),
         ]);
-    }
-
-    public function create()
-    {
-        //
     }
 
     public function store(ShiftStoreRequest $request, Shift $shift)
@@ -37,11 +31,13 @@ class ShiftController extends Controller
         $validated['week'] = $validated['week'] ?? 0;
         $shift->update($validated);
         $shift->save();
-        return redirect()->back()->with('saccess', 'Смена обновлена!');
+        return redirect()->back()->with('success', 'Смена обновлена!');
     }
 
-    public function destroy($id)
+    public function destroy(Shift $shift)
     {
-        //
+        $shift->deleteOrFail();
+        return redirect()->back()->with('success', 'Смена удалена!');
     }
+
 }

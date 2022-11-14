@@ -30,15 +30,6 @@ class ProgramController extends Controller
         $this->authorizeResource(Program::class, 'program');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     public function create()
     {
@@ -62,7 +53,6 @@ class ProgramController extends Controller
         return redirect()->route('program.show', $program->id);
     }
 
-
     public function show(Program $program): Factory|View|Application
     {
         return view('public.programSingle', [
@@ -74,24 +64,6 @@ class ProgramController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Program $program
-     * @return Response
-     */
-    public function edit(Program $program)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param Program $program
-     * @return Response
-     */
     public function update(ProgramUpdateRequest $request, ImageAction $imageAction, Program $program)
     {
         $validated = $request->validated();
@@ -109,7 +81,7 @@ class ProgramController extends Controller
     {
         if (!$program->delete()) {
             return redirect()->back()->with('fail', 'Ошибка удаления программы!');
-            }
+        }
         return redirect()->route('home')->with('success', 'Программа успешно удалена');
     }
 }

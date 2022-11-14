@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Actions\ImageAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UserStoreRequest;
 use App\Http\Requests\Admin\UserUpdateRequest;
 use App\Models\Position;
 use App\Models\Shift;
@@ -28,9 +29,17 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(UserStoreRequest $request, User $user, ImageAction $imageAction)
     {
-        //
+        $validated = $request->validated();
+
+        if (isset($validated['avatar'])) {
+            $validated['avatar'] = $imageAction($validated['avatar'], 'profile', 400, 400);
+        }
+        $validated['password'] = bcrypt($validated['password']);
+        $user->fill($validated);
+        $user->save();
+        return redirect()->route('admin.user.show', $user->id)->with('success', "Пользователь $user->name успешно добавлен");
     }
 
     public function show(User $user)
