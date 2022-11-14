@@ -9,7 +9,9 @@
             @endif
         </div>
     </div>
-
+    @guest
+        <p>В гостевом доступе доступен только поиск и просмотр программ. Залогиньтесь -> </p>
+    @endguest
     <div class="flex-none">
 
         {{--        <div class="dropdown dropdown-end">--}}
