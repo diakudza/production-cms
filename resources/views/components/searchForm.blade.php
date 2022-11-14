@@ -3,7 +3,7 @@
         <input type="text" placeholder="Номер детали" name="partNumber" class="input input-bordered w-full max-w-xs"
                value="{{ $searchPartNumber ?? NULL}}"/>
         <select class="select select-bordered max-w-xs" name="machine_id">
-            <option disabled selected>По станоку</option>
+            <option disabled selected>По станку</option>
             <option value="">Не учитывать</option>
             @foreach ($machines as $machine)
                 <option value="{{ $machine->id }}" @isset($searchMachine)
@@ -23,7 +23,7 @@
         </select>
 
         <select class="select select-bordered max-w-xs" name="partType">
-            <option disabled selected>По тип</option>
+            <option disabled selected>По типу</option>
             <option value="">Не учитывать</option>
             @foreach($partTypes as $partType)
                 <option value="{{ $partType->id }}" @isset($searchPartType)
