@@ -44,7 +44,6 @@
     </div>
     <div class="mt-10">
         Ваши программы:
-{{--        @dd($user->hasRelation('programs'))--}}
         @foreach($programs as $program)
             <div class="flex gap-3 w-full ">
                 <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>

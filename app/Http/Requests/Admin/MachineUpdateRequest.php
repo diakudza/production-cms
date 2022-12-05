@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MachineStoreRequest extends FormRequest
+class MachineUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,13 @@ class MachineStoreRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string'],
-            'id' => ['required', 'numeric', 'unique:machines,id'],
-            'ip' => ['nullable', 'string'],
+            'id' => ['required', 'numeric'],
+            'ip' => ['required', 'string'],
             'repair' => ['nullable', 'numeric'],
             'created_at' => ['nullable', 'date'],
             'machinePhoto' => ['nullable', 'image'],
-            'comment' => ['nullable', 'string']
+            'comment' => ['nullable', 'string'],
+            'machinePhotoDelete' => ['nullable', 'numeric']
         ];
     }
 }

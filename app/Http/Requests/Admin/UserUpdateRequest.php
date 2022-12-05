@@ -34,6 +34,7 @@ class UserUpdateRequest extends FormRequest
             'phone' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'avatar' => ['nullable', 'image'],
+            'avatarDelete' => ['nullable'],
 
         ];
     }

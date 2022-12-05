@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserStoreRequest;
 use App\Http\Requests\Admin\UserUpdateRequest;
 use App\Models\Position;
+use App\Models\Program;
 use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,14 +17,14 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('admin.usersList', [
+        return view('admin.users.usersList', [
             'users' => User::with('shift', 'position')->get(),
         ]);
     }
 
     public function create()
     {
-        return view('admin.userAdd', [
+        return view('admin.users.userAdd', [
             'shifts' => Shift::all(),
             'positions' => Position::all(),
         ]);
@@ -44,10 +45,15 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('admin.userSingle', [
+        $programs = Program::with(['user', 'machine'])
+            ->whereRelation('user', 'id', '=', $user->id)
+            ->get();
+
+        return view('admin.users.userSingle', [
             'user' => $user,
             'shifts' => Shift::all(),
             'positions' => Position::all(),
+            'programs' => $programs
         ]);
     }
 
@@ -57,6 +63,9 @@ class UserController extends Controller
 
         if (isset($validated['avatar'])) {
             $validated['avatar'] = $imageAction($validated['avatar'], 'profile', 400, 400);
+        }
+        if (isset($validated['avatarDelete'])) {
+            $validated['avatar'] = null;
         }
         $user->update($validated);
         $user->save();

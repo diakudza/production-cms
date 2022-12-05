@@ -52,7 +52,7 @@
                     <select name="position_id" class="select select-bordered col-start-2 col-end-5">
                         @foreach($positions as $position)
                             <option value="{{ $position->id }}"
-                                @selected($user->position_id == $position->id)>{{ $position->title }}</option>
+                                    @selected($user->position_id == $position->id)>{{ $position->title }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -90,10 +90,10 @@
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserStatus::FIRED }}"
-                            @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен
+                                @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен
                         </option>
                         <option value="{{ \App\Enums\UserStatus::WORKS }}"
-                            @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает
+                                @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает
                         </option>
                     </select>
                 </div>
@@ -105,10 +105,10 @@
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                            @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор
+                                @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор
                         </option>
                         <option value="{{ \App\Enums\UserRole::USER }}"
-                            @selected($user->status == \App\Enums\UserRole::USER)>Пользователь
+                                @selected($user->status == \App\Enums\UserRole::USER)>Пользователь
                         </option>
                     </select>
                 </div>
@@ -138,6 +138,21 @@
         </div>
     </form>
 
+    <div class="mt-5">
+        <p>Программы этого пользователя':</p>
+        <table>
+            @forelse($programs as $program)
+                <div class="flex gap-3 w-full ">
+                    <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>
+                    <div class="w-96"><a href="{{route('program.show', $program->id)}}">{{ $program->partNumber }}</a>
+                    </div>
+
+                </div>
+            @empty
+                <p>Пока не добалены</p>
+            @endforelse
+        </table>
+    </div>
     @include('components.modalDelete', [
         'message' => "Вы желаете удалить пользователя $user->name",
         'route' => 'admin.user.destroy',

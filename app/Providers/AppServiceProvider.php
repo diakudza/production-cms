@@ -29,9 +29,14 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', AppComposer::class);
 
-        Vite::macro('image', fn ($asset) => $this->asset("resources/image/{$asset}"));
-        Vite::macro('imageLoaded', fn ($asset) => $this->asset("public/image/{$asset}"));
+        Vite::macro('image', fn($asset) => $this->asset("resources/image/{$asset}"));
+        Vite::macro('imageLoaded', fn($asset) => $this->asset("public/image/{$asset}"));
 
         Model::preventLazyLoading(!app()->isProduction());
+
+        if (app()->isProduction()) {
+            \Debugbar::disable();
+        }
     }
+
 }

@@ -14,7 +14,9 @@ class Machine extends Model
         'title',
         'ip',
         'repair',
-        'created_at'
+        'created_at',
+        'machinePhoto',
+        'comment'
     ];
 
     public function programs()
