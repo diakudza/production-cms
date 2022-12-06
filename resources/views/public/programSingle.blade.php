@@ -66,7 +66,8 @@
                             <span>Материал</span>
                         </div>
                         <select name="material_id"
-                                class="select select-bordered col-start-2 col-end-3">
+                                class="select select-bordered col-start-2 col-end-3"
+                            @disabled(!auth()->user() || !auth()->user()->can('update', $program))>
                             <option disabled @if (!old('material_id'))selected @endif >Материал</option>
                             @foreach($materials as $material)
                                 <option
@@ -75,13 +76,15 @@
                         </select>
                         <select name="materialType"
                                 class="select select-bordered col-start-3 col-end-4
-                            @error(old('materialType')) select-error @enderror">
+                            @error(old('materialType')) select-error @enderror"
+                            @disabled(!auth()->user() || !auth()->user()->can('update', $program))>
                             <option value="round" @selected($program->materialType == 'round')>Круг</option>
                             <option value="hexagon" @selected($program->materialType == 'hexagon')>Шестигранник</option>
                             <option value="tube" @selected($program->materialType == 'tube')>Труба</option>
                             <option value="square" @selected($program->materialType == 'square')>Квадрат</option>
                         </select>
                         <input type="text" name="materialDiametr"
+                               @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                                class="select select-bordered  col-start-4 col-end-5 @error('materialDiametr') select-error @enderror"
                                placeholder="D"
                                value="{{ $program->materialDiametr }}">
@@ -115,19 +118,12 @@
                 <div class="v-full mt-5">
                 <textarea name="description"
                           class="textarea textarea-bordered resize-none w-full h-3/4 mb-10"
-                          @readonly(!auth()->user() || !auth()->user()->can('update', $program))
+                          @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                           placeholder="Описание не указанно">{{ $program->description ?? NULL}}</textarea>
                 </div>
 
                 {{--Action buttons--}}
                 <div class="v-full flex justify-between ">
-                    <a class="btn w-20" title="Загрузить на компьютер">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                        </svg>
-                    </a>
 
                     <button class="btn w-20"
                             @disabled(!auth()->user() || !auth()->user()->can('update', $program)) title="Сохранить изменения">
@@ -164,9 +160,28 @@
                        name="programNameForHead1"
                        class="input input-bordered max-w-xs @error('programNameForHead1') input-error @enderror"
                        placeholder="Номер в формате O1111"
+                       @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                        pattern="[O]{1}[0-9]{4}"
                        value="{{ $program->programNameForHead1 }}">
-                <a class="btn absolute right-1 " onclick="copyFunction(programText1)">Copy</a>
+                <div class="absolute right-1 top-0">
+                    <a href="{{route('program.getProgram', [$program, 1])}}"
+                        class="btn w-19"
+                       title="Загрузить на компьютер">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                    </a>
+                    <a class="btn w-19" title="Скопирвать в буфер" onclick="copyFunction(programText1)">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </a>
+                </div>
+
                 <textarea id="programText1"
                           class="textarea textarea-bordered w-full h-3/4 mt-1"
                           name="programTextForHead1"
@@ -177,11 +192,27 @@
                 <input type="text"
                        name="programNameForHead2"
                        class="input input-bordered  max-w-xs @error('programNameForHead2') input-error @enderror"
-                       placeholder="Имя программы 2"
+                       @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                        placeholder="Номер в формате O1111"
                        pattern="[O]{1}[0-9]{4}"
                        value="{{ $program->programNameForHead2 }}">
-                <a class="btn absolute right-1 " onclick="copyFunction(programText2)">Copy</a>
+                <div class="absolute right-1 top-0">
+                    <a href="{{route('program.getProgram', [$program, 2])}}"
+                        class="btn w-19" title="Загрузить на компьютер">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                    </a>
+                    <a class="btn w-19" title="Скопирвать в буфер" onclick="copyFunction(programText2)">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                        </svg>
+                    </a>
+                </div>
                 <textarea id="programText2"
                           class="textarea textarea-bordered w-full h-3/4 mt-1"
                           name="programTextForHead2"

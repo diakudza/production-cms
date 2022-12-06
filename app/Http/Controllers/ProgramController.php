@@ -17,6 +17,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProgramController extends Controller
 {
@@ -84,4 +86,17 @@ class ProgramController extends Controller
         }
         return redirect()->route('home')->with('success', 'Программа успешно удалена');
     }
+
+    public function getProgram(Program $program, int $n)
+    {
+        Storage::deleteDirectory('/programs/' . $program->machine_id);
+        $filename = 'programNameForHead' . $n;
+        $filename = $program->$filename;
+        $content = 'programTextForHead' . $n;
+        $content = $program->$content;
+        Storage::makeDirectory('/programs/' . $program->machine_id);
+        Storage::disk('local')->put('/programs/' . $program->machine_id . '/' . $filename, $content);
+        return Storage::download('/programs/' . $program->machine_id . '/' . $filename);
+    }
+
 }

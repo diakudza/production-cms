@@ -21,6 +21,7 @@ Route::get('/', MainController::class)->name('home');
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 Route::get('/searchParts', [SearchController::class, 'search'])->name('search.part');
 
+Route::get('/getprogram/{program}/{n}', [ProgramController::class, 'getProgram'])->name('program.getProgram');
 Route::resource('program', ProgramController::class)->except(['index']);
 
 //auth routes

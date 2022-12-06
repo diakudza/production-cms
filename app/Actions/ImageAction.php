@@ -13,8 +13,8 @@ class ImageAction
         $path = Storage::putFileAs("/public/image/$pathInImage/origin", $image, $filename);
         $thumbnail = Image::make(Storage::path($path));
         $thumbnail->fit($width, $height);
+        Storage::delete($path);
         $thumbnail->save(Storage::path("/public/image/$pathInImage/thumbnail/" . $filename));
-
         return $filename;
     }
 }

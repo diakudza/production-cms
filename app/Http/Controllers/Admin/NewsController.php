@@ -20,9 +20,13 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        return view('admin.newsEdit', ['news' => $news]);
+        return view('admin.news.newsEdit', ['news' => $news]);
     }
 
+    public function create(News $news)
+    {
+        return view('admin.news.newsAdd');
+    }
     public function store(NewsStoreRequest $request, News $news)
     {
         $news->fill($request->validated());
