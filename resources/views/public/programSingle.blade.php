@@ -7,13 +7,13 @@
         @csrf @method('PUT')
         <div class="grid grid-cols-3 gap-4 ">
             <div class="grid grid-rows-4">
-                <div class="w-full h-full flex justify-center  verflow-hidden">
+                <div class="w-full flex justify-center mb-5" >
                     <img src="@if (@isset($program->partPhoto)) {{ Storage::url('image/programs/thumbnail/'. $program->partPhoto)  }}
                         @else
                             {{ Storage::url('image/no_image.png') }}
                             @endif"
                          alt="Shoes"
-                         class="rounded-badge"/>
+                         class="rounded-badge h-56"/>
                     @if(auth()->user() && ( auth()->user()->isAdmin() || auth()->user()->can('update', $program)))
                         <input type="file"
                                name="partPhoto"
