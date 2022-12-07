@@ -35,11 +35,6 @@ class SearchController extends Controller
             'authors' => (new User)->getAdjusterOnly(),
             'machines' => Machine::all(),
             'partTypes' => PartType::all(),
-            'searchitemOnPage' => $request->validated('itemOnPage') ?? NULL,
-            'searchPartType' => $request->validated('partType') ?? NULL,
-            'searchAuthor' => $request->validated('author') ?? NULL,
-            'searchPartNumber' => $request->validated('partNumber') ?? NULL,
-            'searchMachine' => $request->validated('machine') ?? NULL,
         ]);
     }
 }

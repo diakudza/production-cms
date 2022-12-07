@@ -57,6 +57,9 @@ class ProgramController extends Controller
 
     public function show(Program $program): Factory|View|Application
     {
+
+        session()->put('viewed.'.$program->id , $program->partNumber);
+
         return view('public.programSingle', [
             'program' => $program,
             'machines' => Machine::all(),

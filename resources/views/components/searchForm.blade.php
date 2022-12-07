@@ -1,14 +1,14 @@
 <form action="{{route('search.part')}}" class="card w-full bg-base-100 shadow-xl">
     <div class="grid grid-cols-6 gap-4 p-2">
         <input type="text" placeholder="Номер детали" name="partNumber" class="input input-bordered w-full max-w-xs"
-               value="{{ $searchPartNumber ?? NULL}}"/>
+               value="{{ request('partNumber') }}"/>
         <select class="select select-bordered max-w-xs" name="machine_id">
             <option disabled selected>По станку</option>
             <option value="">Не учитывать</option>
             @foreach ($machines as $machine)
-                <option value="{{ $machine->id }}" @isset($searchMachine)
-                    @selected($searchMachine == $machine->id)
-                    @endisset>{{ $machine->title }}</option>
+                <option value="{{ $machine->id }}" @selected(request('machine_id') == $machine->id)>
+                    {{ $machine->title }}
+                </option>
             @endforeach
         </select>
 
@@ -16,9 +16,7 @@
             <option disabled selected>По автору</option>
             <option value="">Не учитывать</option>
             @foreach ($authors as $author)
-                <option value="{{ $author->id }}" @isset($searchAuthor)
-                    @selected($searchAuthor == $author->id)
-                    @endisset>{{ $author->name }}</option>
+                <option value="{{ $author->id }}"@selected(request('author') == $author->id)>{{ $author->name }}</option>
             @endforeach
         </select>
 
@@ -26,18 +24,16 @@
             <option disabled selected>По типу</option>
             <option value="">Не учитывать</option>
             @foreach($partTypes as $partType)
-                <option value="{{ $partType->id }}" @isset($searchPartType)
-                    @selected($searchPartType == $partType->id)
-                    @endisset>{{ $partType->title }}</option>
+                <option value="{{ $partType->id }}" @selected(request('partType') == $partType->id)>
+                    {{ $partType->title }}
+                </option>
             @endforeach
         </select>
 
         <select class="select select-bordered max-w-xs" name="itemOnPage">
             <option disabled selected>Выводить по</option>
             @for($count = 10; $count <= 150; $count += 20)
-                <option value="{{ $count }}" @isset($searchitemOnPage)
-                    @selected($searchitemOnPage == $count )
-                    @endisset>{{ $count }}</option>
+                <option value="{{ $count }}" @selected(request('itemOnPage') == $count )>{{ $count }}</option>
             @endfor
         </select>
         <div class="grid grid-cols-2 gap-2">
