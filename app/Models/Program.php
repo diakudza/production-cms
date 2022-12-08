@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Program extends Model
 {
@@ -16,36 +17,36 @@ class Program extends Model
         'partType_id',
         'material_id',
         'materialType',
-        'programNameForHead1',
-        'programNameForHead2',
-        'programTextForHead1',
-        'programTextForHead2',
+        'title_1',
+        'title_2',
+        'text_1',
+        'text_2',
         'partPhoto',
-        'materialDiametr',
+        'materialDiameter',
         'description',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function machine()
+    public function machine(): BelongsTo
     {
         return $this->belongsTo(Machine::class);
     }
 
-    public function partType()
+    public function partType(): BelongsTo
     {
         return $this->belongsTo(PartType::class, 'partType_id');
     }
 
-    public function material()
+    public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class);
     }
 
-    public function  getLastPrograms(int $count)
+    public function getLastPrograms(int $count)
     {
         return $this->OrderBy('created_at', 'desc')->with('user')->limit($count)->get();
     }

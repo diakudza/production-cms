@@ -21,12 +21,12 @@ return new class extends Migration
             $table->integer('partType_id')->nullable(false);
             $table->integer('material_id')->nullable(false);
             $table->enum('materialType', ['hexagon', 'round', 'tube', 'square'])->nullable(false);
-            $table->string('programmNameForHead1')->nullable();
-            $table->string('programmNameForHead2')->nullable();
-            $table->text('programmTextForHead1')->nullable();
-            $table->text('programmTextForHead2')->nullable();
+            $table->string('title_1')->nullable();
+            $table->string('title_2')->nullable();
+            $table->text('text_1')->nullable();
+            $table->text('text_2')->nullable();
             $table->string('partPhoto')->nullable();
-            $table->integer('materialDiametr')->nullable();
+            $table->integer('materialDiameter')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
         });

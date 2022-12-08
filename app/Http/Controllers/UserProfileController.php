@@ -6,13 +6,15 @@ use App\Http\Requests\UserProfileUpdateRequest;
 use App\Models\Program;
 use App\Models\Theme;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class UserProfileController extends Controller
 {
 
-    public function index()
+    public function index(): Factory|View|Application
     {
         $programs = Program::with(['user', 'machine'])
             ->whereRelation('user', 'id', '=', auth()->user()->id)
@@ -23,7 +25,7 @@ class UserProfileController extends Controller
         ]);
     }
 
-    public function update(UserProfileUpdateRequest $request, User $user, Theme $theme)
+    public function update(UserProfileUpdateRequest $request, User $user, Theme $theme): RedirectResponse
     {
         $validated = $request->validated();
         $theme = $theme->findOrFail($validated['theme_id']);

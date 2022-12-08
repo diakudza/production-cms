@@ -30,13 +30,13 @@ class ProgramUpdateRequest extends FormRequest
             'partType_id' => ['nullable', 'numeric', 'exists:partTypes,id'],
             'user_id' => ['nullable', 'numeric', 'exists:users,id'],
             'materialType' => ['nullable', 'in:hexagon,round,tube,square'],
-            'programNameForHead1' => ['nullable', 'alpha_num', 'size:5'],
-            'programNameForHead2' => ['nullable', 'alpha_num', 'size:5'],
-            'programTextForHead1' => ['nullable', 'string'],
-            'programTextForHead2' => ['nullable', 'string'],
+            'title_1' => ['nullable', 'alpha_num', 'size:5'],
+            'title_2' => ['nullable', 'alpha_num', 'size:5'],
+            'text_1' => ['nullable', 'string'],
+            'text_2' => ['nullable', 'string'],
             'partPhoto' => ['nullable', 'image'],
             'description' => ['nullable'],
-            'materialDiametr' => ['nullable', 'numeric'],
+            'materialDiameter' => ['nullable', 'numeric'],
         ];
     }
 }

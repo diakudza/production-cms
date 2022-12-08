@@ -79,10 +79,10 @@
                             <option value="square" @selected(old('materialType') == 'square')>Квадрат</option>
                         </select>
 
-                        <input type="text" name="materialDiametr"
-                               class="select select-bordered  col-start-4 col-end-5 @error('materialDiametr') select-error @enderror"
+                        <input type="text" name="materialDiameter"
+                               class="select select-bordered  col-start-4 col-end-5 @error('materialDiameter') select-error @enderror"
                                placeholder="D"
-                               value="{{ old('materialDiametr') }}">
+                               value="{{ old('materialDiameter') }}">
                     </div>
 
                 </div>
@@ -103,22 +103,22 @@
             </div>
 
             <div class="relative">
-                <input type="text" name="programNameForHead1"
-                       class="input input-bordered  max-w-xs @error('programNameForHead1') input-error @enderror"
+                <input type="text" name="title_1"
+                       class="input input-bordered  max-w-xs @error('title_1') input-error @enderror"
                        placeholder="Номер в формате O1111"
                        pattern="[O]{1}[0-9]{4}"
-                       value="{{ old('programNameForHead1')  }}">
+                       value="{{ old('title_1')  }}">
                 <textarea id="programText1" class="textarea textarea-bordered w-full h-3/4 mt-1 "
-                          placeholder="Program code" name="programTextForHead1">{{ old('programTextForHead1') }}</textarea>
+                          placeholder="Program code" name="text_1">{{ old('text_1') }}</textarea>
             </div>
             <div class="relative">
-                <input type="text" name="programNameForHead2"
-                       class="input input-bordered  max-w-xs @error('programNameForHead2') input-error @enderror"
+                <input type="text" name="title_2"
+                       class="input input-bordered  max-w-xs @error('title_2') input-error @enderror"
                        placeholder="Номер в формате O1111"
                        pattern="[O]{1}[0-9]{4}"
-                       value="{{ old('programNameForHead2')  }}">
+                       value="{{ old('title_2')  }}">
                 <textarea id="programText2" class="textarea textarea-bordered w-full h-3/4 mt-1 "
-                          placeholder="Program code" name="programTextForHead2">{{ old('programTextForHead2') }}</textarea>
+                          placeholder="Program code" name="text_2">{{ old('text_2') }}</textarea>
             </div>
 
         </div>

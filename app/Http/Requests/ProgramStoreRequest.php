@@ -31,13 +31,13 @@ class ProgramStoreRequest extends FormRequest
             'partType_id' => ['required', 'numeric', 'exists:partTypes,id'],
             'user_id' => ['required', 'numeric', 'exists:users,id'],
             'materialType' => ['required', 'in:hexagon,round,tube,square'],
-            'programNameForHead1' => ['required', 'alpha_num', 'size:5'],
-            'programNameForHead2' => ['required', 'alpha_num', 'size:5'],
-            'programTextForHead1' => ['nullable', 'string'],
-            'programTextForHead2' => ['nullable', 'string'],
+            'title_1' => ['required', 'alpha_num', 'size:5'],
+            'title_2' => ['required', 'alpha_num', 'size:5'],
+            'text_1' => ['nullable', 'string'],
+            'text_2' => ['nullable', 'string'],
             'partPhoto' => ['nullable', 'image'],
             'description' => ['nullable'],
-            'materialDiametr' => ['nullable', 'numeric'],
+            'materialDiameter' => ['nullable', 'numeric'],
         ];
     }
 }

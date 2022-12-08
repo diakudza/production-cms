@@ -23,4 +23,9 @@ class Machine extends Model
     {
         return $this->hasMany(Program::class);
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

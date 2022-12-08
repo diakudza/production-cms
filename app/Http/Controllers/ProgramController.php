@@ -13,10 +13,7 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -32,8 +29,7 @@ class ProgramController extends Controller
         $this->authorizeResource(Program::class, 'program');
     }
 
-
-    public function create()
+    public function create(): Factory|View|Application
     {
         return view('public.programAdd', [
             'machines' => Machine::all(),
@@ -42,7 +38,7 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function store(ProgramStoreRequest $request, Program $program, ImageAction $imageAction)
+    public function store(ProgramStoreRequest $request, Program $program, ImageAction $imageAction): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -69,7 +65,7 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function update(ProgramUpdateRequest $request, ImageAction $imageAction, Program $program)
+    public function update(ProgramUpdateRequest $request, ImageAction $imageAction, Program $program): RedirectResponse
     {
         $validated = $request->validated();
 
@@ -90,12 +86,12 @@ class ProgramController extends Controller
         return redirect()->route('home')->with('success', 'Программа успешно удалена');
     }
 
-    public function getProgram(Program $program, int $n)
+    public function getProgram(Program $program, int $n): StreamedResponse
     {
         Storage::deleteDirectory('/programs/' . $program->machine_id);
-        $filename = 'programNameForHead' . $n;
+        $filename = 'title_' . $n;
         $filename = $program->$filename;
-        $content = 'programTextForHead' . $n;
+        $content = 'text_' . $n;
         $content = $program->$content;
         Storage::makeDirectory('/programs/' . $program->machine_id);
         Storage::disk('local')->put('/programs/' . $program->machine_id . '/' . $filename, $content);

@@ -83,11 +83,11 @@
                             <option value="tube" @selected($program->materialType == 'tube')>Труба</option>
                             <option value="square" @selected($program->materialType == 'square')>Квадрат</option>
                         </select>
-                        <input type="text" name="materialDiametr"
+                        <input type="text" name="materialDiameter"
                                @disabled(!auth()->user() || !auth()->user()->can('update', $program))
-                               class="select select-bordered  col-start-4 col-end-5 @error('materialDiametr') select-error @enderror"
+                               class="select select-bordered  col-start-4 col-end-5 @error('materialDiameter') select-error @enderror"
                                placeholder="D"
-                               value="{{ $program->materialDiametr }}">
+                               value="{{ $program->materialDiameter }}">
                     </div>
 
                     @if(auth()->user() && auth()->user()->isAdmin())
@@ -157,12 +157,12 @@
 
             <div class="relative">
                 <input type="text"
-                       name="programNameForHead1"
-                       class="input input-bordered max-w-xs @error('programNameForHead1') input-error @enderror"
+                       name="title_1"
+                       class="input input-bordered max-w-xs @error('title_1') input-error @enderror"
                        placeholder="Номер в формате O1111"
                        @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                        pattern="[O]{1}[0-9]{4}"
-                       value="{{ $program->programNameForHead1 }}">
+                       value="{{ $program->title_1 }}">
                 <div class="absolute right-1 top-0">
                     <a href="{{route('program.getProgram', [$program, 1])}}"
                         class="btn w-19"
@@ -184,18 +184,18 @@
 
                 <textarea id="programText1"
                           class="textarea textarea-bordered w-full h-3/4 mt-1"
-                          name="programTextForHead1"
-                          placeholder="Bio"
-                    @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->programTextForHead1 }}</textarea>
+                          name="text_1"
+                          placeholder="Program text"
+                    @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->text_1 }}</textarea>
             </div>
             <div class="relative">
                 <input type="text"
-                       name="programNameForHead2"
-                       class="input input-bordered  max-w-xs @error('programNameForHead2') input-error @enderror"
+                       name="title_2"
+                       class="input input-bordered  max-w-xs @error('title_2') input-error @enderror"
                        @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                        placeholder="Номер в формате O1111"
                        pattern="[O]{1}[0-9]{4}"
-                       value="{{ $program->programNameForHead2 }}">
+                       value="{{ $program->title_2 }}">
                 <div class="absolute right-1 top-0">
                     <a href="{{route('program.getProgram', [$program, 2])}}"
                         class="btn w-19" title="Загрузить на компьютер">
@@ -215,9 +215,9 @@
                 </div>
                 <textarea id="programText2"
                           class="textarea textarea-bordered w-full h-3/4 mt-1"
-                          name="programTextForHead2"
-                          placeholder="Bio"
-                    @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->programTextForHead2 }}</textarea>
+                          name="text_2"
+                          placeholder="Program text"
+                    @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->text_2 }}</textarea>
             </div>
 
         </div>
