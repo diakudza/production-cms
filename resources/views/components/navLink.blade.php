@@ -1,4 +1,6 @@
 <a href="{{ route('home') }}" class="btn @if(request()->route()->getName() == 'home') btn-active @endif">Главная</a>
+<a href="{{ route('task.index') }}" class="btn
+@if(request()->route()->getName() == 'task.index' || request()->route()->getName() == 'task.show') btn-active @endif">Задания</a>
 <a href="{{ route('search.index') }}"
    class="btn @if(request()->route()->getName() == 'search.index') btn-active @endif">Поиск по базе</a>
 @auth()
