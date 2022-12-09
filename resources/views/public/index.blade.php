@@ -20,7 +20,9 @@
                                 </div>
                             </td>
                             <td>
+                                <a href="{{ route('search.part', ['author_id'=>$program->user->id]) }}">
                                 {{ $program->user->name }}
+                                </a>
                             </td>
                             <td>
                                 {{ $program->created_at->format('Y-m-d') }}

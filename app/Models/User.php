@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,17 +67,17 @@ class User extends Authenticatable
         return $this->hasMany(News::class);
     }
 
-    public function position()
+    public function position(): BelongsTo
     {
         return $this->belongsTo(Position::class);
     }
 
-    public function shift()
+    public function shift(): BelongsTo
     {
         return $this->belongsTo(Shift::class);
     }
 
-    public function theme()
+    public function theme(): BelongsTo
     {
         return $this->belongsTo(Theme::class);
     }
@@ -83,17 +85,17 @@ class User extends Authenticatable
     /**
      * @return mixed
      */
-    public function getAdjusterOnly()
+    public function getAdjusterOnly(): mixed
     {
         return $this->whereNotIn('position_id', [3, 4, 5])->OrderBy('name')->get();
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->role === UserRole::ADMIN;
     }
 
-    public function getDaysOnServer()
+    public function getDaysOnServer(): int|string
     {
         $created = new Carbon($this->employmentDate);
         $now = Carbon::now();
@@ -103,4 +105,14 @@ class User extends Authenticatable
         return $difference;
     }
 
+//    public function favoriteMachines()
+//    {
+//        $likeMachine = $this->withCount([
+//            'programs' => function (Builder $query) {
+//                $query->where('user_id', auth()->user()->id);
+//            }
+//        ])
+//            ->get();
+//        dd($likeMachine);
+//    }
 }

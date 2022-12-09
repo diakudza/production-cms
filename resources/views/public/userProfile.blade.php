@@ -3,22 +3,48 @@
 @section('title', 'Главная')
 
 @section('content')
-    <div>Страница профиля пользователя</div>
+    <div class="text-3xl">Страница профиля пользователя</div>
+
     <div class="grid grid-cols-2 gap-4 mt-10">
 
-        <div>
-            <div>Информация</div>
+        <div class="border rounded p-5">
+            <div class="mb-5">Ваша статистика</div>
+
             <div>
-                Вы добавили программ - {{auth()->user()->programs->count()}}
+                Вы добавили программ - {{auth()->user()->programs->count()}} шт.
             </div>
+            <div class="divider"></div>
+            <div>
+                <p>Вы писали программы под станки:</p>
+                @foreach($favMachines as $machine)
+                    <a href="{{ route('search.part', ['machine_id' => $machine->id, 'author' => auth()->id()]) }}">
+                        <div> {{$machine->title}} - {{$machine->count}} шт.</div>
+                    </a>
+                @endforeach
+            </div>
+            <div class="divider"></div>
             <div>
                 На работе - {{ auth()->user()->getDaysOnServer() }} дней
             </div>
-
-
+            <div class="divider"></div>
+            <div class="mt-5 ">
+                <p class="mt-5 mb-5">Ваши программы:</p>
+                @foreach($programs as $program)
+                    <div class="flex gap-3 w-full ">
+                        <div>{{$loop->iteration}}</div>
+                        <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>
+                        <div class="w-96">{{ $program->partNumber }}</a></div>
+                        <div class="w-100">
+                            <a href="{{ route('search.part', ['machine_id'=>$program->machine->id]) }}">
+                                {{ $program->machine->title }}
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-        <div>
-            <p>Настройки</p>
+        <div class="border rounded p-5">
+            <p class="mb-5">Настройки</p>
             <form action="{{route('user.update', auth()->user()->id)}}" method="post" class="flex gap-2">
                 @csrf @method('PUT')
                 <div class="programm__edit">
@@ -42,16 +68,7 @@
         </div>
         </form>
     </div>
-    <div class="mt-10">
-        Ваши программы:
-        @foreach($programs as $program)
-            <div class="flex gap-3 w-full ">
-                <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>
-                <div class="w-96">{{ $program->partNumber }}</a></div>
-                <div class="w-100">{{ $program->machine->title }}</a></div>
-            </div>
-        @endforeach
-    </div>
+
     </div>
 
 @endsection

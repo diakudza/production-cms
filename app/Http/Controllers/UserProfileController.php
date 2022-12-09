@@ -9,7 +9,9 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 
 class UserProfileController extends Controller
 {
@@ -17,10 +19,20 @@ class UserProfileController extends Controller
     public function index(): Factory|View|Application
     {
         $programs = Program::with(['user', 'machine'])
-            ->whereRelation('user', 'id', '=', auth()->user()->id)
+            ->whereRelation('user', 'id', '=', auth()->id())
             ->get();
+
+        $favMachines = Program::query()
+            ->join('machines', 'machines.id', '=','programs.machine_id')
+            ->selectRaw('count(machine_id) as count, machines.title, machines.id')
+            ->where('user_id', auth()->id())
+            ->groupBy('machine_id')
+            ->orderByDesc('count')
+            ->get();
+
         return view('public.userProfile', [
             'programs' => $programs,
+            'favMachines' => $favMachines,
             'themes' => Theme::all(),
         ]);
     }

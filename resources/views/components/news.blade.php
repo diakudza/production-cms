@@ -12,7 +12,7 @@
                             private
                         @endif</span>
                 @endif
-                <p>{{ $singleNews->title }}</p>
+                <p class="text-2xl">{{ $singleNews->title }}</p>
             </div>
             <div>{{ $singleNews->text }}</div>
             <div>{{ $singleNews->user->name }} {{ $singleNews->created_at->format('Y-m-d') }}</div>
