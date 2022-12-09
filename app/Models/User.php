@@ -35,6 +35,7 @@ class User extends Authenticatable
         'phone',
         'description',
         'theme_id',
+        'dateOfDismissal'
 
     ];
 
@@ -95,24 +96,19 @@ class User extends Authenticatable
         return $this->role === UserRole::ADMIN;
     }
 
-    public function getDaysOnServer(): int|string
+    public function getWorkingDays(): int|string
     {
         $created = new Carbon($this->employmentDate);
-        $now = Carbon::now();
-        $difference = ($created->diff($now)->days < 1)
+        if (auth()->user()->status == 'WORKS') {
+            $date = Carbon::now();
+        }else {
+            $date = auth()->user()->dateOfDismissal;
+        }
+
+        $difference = ($created->diff($date)->days < 1)
             ? '0'
-            : $created->diffInDays($now);
+            : $created->diffInDays($date);
         return $difference;
     }
 
-//    public function favoriteMachines()
-//    {
-//        $likeMachine = $this->withCount([
-//            'programs' => function (Builder $query) {
-//                $query->where('user_id', auth()->user()->id);
-//            }
-//        ])
-//            ->get();
-//        dd($likeMachine);
-//    }
 }

@@ -1,3 +1,4 @@
+@php use App\Enums\UserStatus;use Approle\Enums\UserRole; @endphp
 @extends('layouts.app')
 
 @section('title', "Пользователь $user->name")
@@ -52,26 +53,30 @@
                     <select name="position_id" class="select select-bordered col-start-2 col-end-5">
                         @foreach($positions as $position)
                             <option value="{{ $position->id }}"
-                                    @selected($user->position_id == $position->id)>{{ $position->title }}</option>
+                                @selected($user->position_id == $position->id)>{{ $position->title }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="grid grid-cols-4 ">
-                    <div class="programm__edit">
-                        <span>Смена</span>
+
+                @if($user->status == 'WORKS')
+                    <div class="grid grid-cols-4 ">
+                        <div class="programm__edit">
+                            <span>Смена</span>
+                        </div>
+                        <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
+                            @foreach($shifts as $shift)
+                                <option value="{{ $shift->id }}" @selected($user->shift_id == $shift->id)>
+                                    {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % 2 )
+                                        первая
+                                    @else
+                                        вторая
+                                    @endif
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
-                    <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
-                        @foreach($shifts as $shift)
-                            <option value="{{ $shift->id }}" @selected($user->shift_id == $shift->id)>
-                                {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % 2 )
-                                    первая
-                                @else
-                                    вторая
-                                @endif
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+                @endif
+
                 <div class="grid grid-cols-4 ">
                     <div class="programm__edit">
                         <span>Дата устройства</span>
@@ -79,7 +84,7 @@
 
                     <input type="date" name="employmentDate"
                            class="select select-bordered  col-start-2 col-end-5 @error('employmentDate') select-error @enderror"
-                           placeholder="Табельный номер"
+                           placeholder="Дата устройства"
                            value="{{ $user->employmentDate }}">
                 </div>
 
@@ -89,15 +94,26 @@
                     </div>
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
-                        <option value="{{ \App\Enums\UserStatus::FIRED }}"
-                                @selected($user->status == \App\Enums\UserStatus::FIRED)>Уволен
+                        <option value="{{ UserStatus::FIRED }}"
+                            @selected($user->status == UserStatus::FIRED)>Уволен
                         </option>
-                        <option value="{{ \App\Enums\UserStatus::WORKS }}"
-                                @selected($user->status == \App\Enums\UserStatus::WORKS)>Работает
+                        <option value="{{ UserStatus::WORKS }}"
+                            @selected($user->status == UserStatus::WORKS)>Работает
                         </option>
                     </select>
                 </div>
+                @if($user->status == 'FIRED')
+                    <div class="grid grid-cols-4 ">
+                        <div class="programm__edit">
+                            <span>Дата увольнения</span>
+                        </div>
 
+                        <input type="date" name="dateOfDismissal"
+                               class="select select-bordered  col-start-2 col-end-5 @error('dateOfDismissal') select-error @enderror"
+                               placeholder="Дата увольнения"
+                               value="{{ $user->dateOfDismissal }}">
+                    </div>
+                @endif
                 <div class="grid grid-cols-4 ">
                     <div class="programm__edit">
                         <span>Роль</span>
@@ -105,10 +121,10 @@
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
                         <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                                @selected($user->status == \App\Enums\UserRole::ADMIN)>Администратор
+                            @selected($user->role == \App\Enums\UserRole::ADMIN)>Администратор
                         </option>
                         <option value="{{ \App\Enums\UserRole::USER }}"
-                                @selected($user->status == \App\Enums\UserRole::USER)>Пользователь
+                            @selected($user->role == \App\Enums\UserRole::USER)>Пользователь
                         </option>
                     </select>
                 </div>
@@ -137,22 +153,25 @@
             </div>
         </div>
     </form>
+    @if(in_array($user->position_id, [1,2,3]))
+        <div class="mt-5">
+            <p>Программы этого пользователя:</p>
+            <table>
+                @forelse($programs as $program)
+                    <div class="flex gap-3 w-full ">
+                        <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>
+                        <div class="w-96"><a
+                                href="{{route('program.show', $program->id)}}">{{ $program->partNumber }}</a>
+                        </div>
 
-    <div class="mt-5">
-        <p>Программы этого пользователя':</p>
-        <table>
-            @forelse($programs as $program)
-                <div class="flex gap-3 w-full ">
-                    <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>
-                    <div class="w-96"><a href="{{route('program.show', $program->id)}}">{{ $program->partNumber }}</a>
                     </div>
+                @empty
+                    <p>Пока не добалены</p>
+                @endforelse
+            </table>
+        </div>
+    @endif
 
-                </div>
-            @empty
-                <p>Пока не добалены</p>
-            @endforelse
-        </table>
-    </div>
     @include('components.modalDelete', [
         'message' => "Вы желаете удалить пользователя $user->name",
         'route' => 'admin.user.destroy',
