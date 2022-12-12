@@ -103,13 +103,17 @@ class TaskController extends Controller
         if (empty($validated['inWork'])) {
             $validated['inWork'] = 0;
         }
+
         if (!empty($validated['completed'])) {
             $validated['inWork'] = 0;
             $validated['completed'] = 1;
             $validated['dateCompleted'] = Carbon::now()->format('Y-m-d');
         }
+
         $task->update($validated);
-        return redirect()->route('task.create', '#' . $request->input('machine_id'))
+
+        return redirect()
+            ->route('task.show', $validated['taskStatus'] ?? NULL . '#' . $request->input('machine_id'))
             ->with('success', 'Задание обновлено');
     }
 

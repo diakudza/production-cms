@@ -24,6 +24,7 @@
                         <form action="{{route('task.update', $task)}}"
                               class="col-span-4" method="POST">
                             <input type="hidden" name="machine_id" value="{{ $task->machine_id }}">
+                            <input type="hidden" name="taskStatus" value="{{ request()->route()->parameters['task'] }}">
                             <div class="grid grid-cols-6 mt-1 ">
                                 @csrf @method('PUT')
                                 <div>

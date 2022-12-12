@@ -24,7 +24,9 @@ Route::get('/searchParts', [SearchController::class, 'search'])->name('search.pa
 
 Route::get('/getprogram/{program}/{n}', [ProgramController::class, 'getProgram'])->name('program.getProgram');
 Route::resource('program', ProgramController::class)->except(['index']);
+
 Route::resource('task', TaskController::class);
+
 //auth routes
 Route::group(['middleware' => 'auth'], function () {
     Route::delete('/logout', LogoutController::class)->name('logout');

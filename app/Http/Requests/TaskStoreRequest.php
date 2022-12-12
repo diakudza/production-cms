@@ -32,6 +32,7 @@ class TaskStoreRequest extends FormRequest
             'date' => ['required', 'date'],
             'inWork' => ['nullable', 'numeric'],
             'completed' => ['nullable', 'numeric'],
+            'taskStatus' => ['nullable', 'string']
         ];
     }
 }
