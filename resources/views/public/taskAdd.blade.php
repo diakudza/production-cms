@@ -43,7 +43,7 @@
                                     <input type="date" name="date" class="input input-xs h-full"
                                            value="{{ $task->date }}">
                                     @if($diff < 0)
-                                        <span class="absolute  bg-red-900 "> Пр. {{ abs($diff) }} д.</span>
+                                        <span class="absolute hidden bg-red-900 md:inline"> Пр. {{ abs($diff) }} д.</span>
                                     @endif
                                 </div>
                                 <div class="grid grid-cols-2 ">

@@ -22,8 +22,8 @@
 
                 @foreach($result as $program)
                     <a href="{{ route('program.show', ['program'=>$program->id]) }}">
-                    <div class="grid sm:grid-cols-3 md:grid-cols-6">
-                        <div class="sm:w-10 md:w-20">
+                    <div class="border rounded-md grid grid-cols-4 md:grid-cols-7 mt-1 ">
+                        <div class="w-10 md:w-20 " >
                             <figure>
                                 <img class="rounded-md" class="search__photo" src="@if(@isset($program->partPhoto)){{ Storage::url('image/programs/thumbnail/'. $program->partPhoto) }}
                                      @else
@@ -33,14 +33,14 @@
                             </figure>
                         </div>
 
-                        <div class="truncate w-52" title="{{ $program->partNumber }}">
-                            <a href="{{ route('program.show', ['program'=>$program->id]) }}">{{ $program->partNumber }}</a>
+                        <div class="break-all truncate" title="{{ $program->partNumber }}">
+                            {{ $program->partNumber }}
                         </div>
 
                         <div>{{ $program->partType->title ?? 'Не указано' }}</div>
                         <div>{{ $program->machine->title ?? 'Не указано' }} </div>
-                        <div>{{ $program->user->name ?? 'Не указано' }}</div>
-                        <div>
+                        <div class="hidden md:block">{{ $program->user->name ?? 'Не указано' }}</div>
+                        <div class="hidden md:block">
                             <div class="h-full flex gap-2">
                                 @isset($program->material->color)
                                     @include('components.materialColour' , ['color' => $program->material->color] )
@@ -48,7 +48,7 @@
                                 {{ $program->material->title ?? 'Не указано' }}
                             </div>
                         </div>
-                        <td>{{ $program->created_at->format('Y-m-d') }}</td>
+                        <div class="hidden md:block">{{ $program->created_at->format('Y-m-d') }}</div>
 
                     </div>
                     </a>

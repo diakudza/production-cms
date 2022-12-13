@@ -5,7 +5,7 @@
 @section('content')
     <div class="text-3xl">Страница профиля пользователя</div>
 
-    <div class="grid grid-rows-1 xl:grid-cols-2 gap-4 mt-10">
+    <div class="grid grid-rows-1 xl:grid-cols-2 gap-4 mt-10 w-full">
 
         <div class="border rounded p-5">
 
@@ -42,7 +42,7 @@
                         <div>{{$loop->iteration}}</div>
                         <a href="{{route('program.show', $program->id)}}">
                             <div class="w-10">{{ $program->id }}</div>
-                            <div class="w-96">{{ $program->partNumber }}</a></div>
+                            <div class="w-30 md:w-60">{{ $program->partNumber }}</a></div>
                     <div class="w-100">
                         <a href="{{ route('search.part', ['machine_id'=>$program->machine->id]) }}">
                             {{ $program->machine->title }}
