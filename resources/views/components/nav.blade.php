@@ -9,7 +9,7 @@
             </ul>
         </div>
 {{--    </div>--}}
-        <div class="hidden md:block btn-group btn-group-vertical md:btn-group-horizontal">
+        <div class=" btn-group btn-group-horizontal hidden md:flex">
             @if(request()->route()->getPrefix() == '/admin')
                 @include('components.navLinkAdmin')
             @else
