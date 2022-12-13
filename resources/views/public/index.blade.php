@@ -4,9 +4,10 @@
 
 @section('content')
 
-    <div class="grid grid-cols-2 gap-4">
-
-        @include('components.news')
+    <div class="grid  lg:grid-row-2 2xl:grid-cols-2 gap-4">
+        <div>
+            @include('components.news')
+        </div>
         <div class="">
             <div>
                 @include('components.rating')
@@ -21,7 +22,7 @@
                             </td>
                             <td>
                                 <a href="{{ route('search.part', ['author'=>$program->user->id]) }}">
-                                {{ $program->user->name }}
+                                    {{ $program->user->name }}
                                 </a>
                             </td>
                             <td>
@@ -32,15 +33,15 @@
                 </table>
             </div>
             @if(session()->has('viewed'))
-            <div class="mt-10">
+                <div class="mt-10">
                     Просмотренные программы:
-                <div>
-                    @foreach(session()->get('viewed') as $id=> $item )
-                      <a class="btn btn-ghost" href="{{ route('program.show', $id) }}">{{ $item }}</a>
-                    @endforeach
-                </div>
+                    <div>
+                        @foreach(session()->get('viewed') as $id=> $item )
+                            <a class="btn btn-ghost" href="{{ route('program.show', $id) }}">{{ $item }}</a>
+                        @endforeach
+                    </div>
 
-            </div>
+                </div>
             @endif
         </div>
     </div>

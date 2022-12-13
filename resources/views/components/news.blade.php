@@ -1,4 +1,4 @@
-<div class=" ">
+
     <p class="text-2xl mb-10">Новости</p>
     @forelse ($news as $singleNews)
         @if(auth()->check() && auth()->user()->can('update', $singleNews))<a href="{{ route('admin.news.edit', $singleNews->id) }}">@endif
@@ -21,4 +21,4 @@
     @empty
         <div>Пока еще нет новостей!</div>
     @endforelse
-</div>
+

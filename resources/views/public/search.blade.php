@@ -9,55 +9,53 @@
         @include('components.searchForm')
 
         @if(isset($result) && $result->count() && !isset($searchIndex))
-            <div>
-                <table id="sortable" class="table w-full table-zebra mt-10">
 
-                    <th class="w-15"><a class="jsLink" href="&sortBy=partNumber">Номер</a></th>
-                    <th>Превью</th>
-                    <th><a class="jsLink" href="&sortBy=partType_id">Тип</a></th>
-                    <th><a class="jsLink" href="&sortBy=machine_id">Станок</a></th>
-                    <th><a class="jsLink" href="&sortBy=user_id">Автор</a></th>
-                    <th><a class="jsLink" href="&sortBy=material_id">Материал</a></th>
-                    <th>Дата добавления</th>
+            <div id="sortable" class="table w-full table-zebra mt-10">
 
-                    @foreach($result as $program)
+                {{--                    <th class="w-15"><a class="jsLink" href="&sortBy=partNumber">Номер</a></th>--}}
+                {{--                    <th>Превью</th>--}}
+                {{--                    <th><a class="jsLink" href="&sortBy=partType_id">Тип</a></th>--}}
+                {{--                    <th><a class="jsLink" href="&sortBy=machine_id">Станок</a></th>--}}
+                {{--                    <th><a class="jsLink" href="&sortBy=user_id">Автор</a></th>--}}
+                {{--                    <th><a class="jsLink" href="&sortBy=material_id">Материал</a></th>--}}
+                {{--                    <th>Дата добавления</th>--}}
 
-                        <tr class="h-16">
-                            <td>
-                                <div class="truncate w-52" title="{{ $program->partNumber }}">
-                                    <a href="{{ route('program.show', ['program'=>$program->id]) }}">{{ $program->partNumber }}</a>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="w-20">
-                                    <figure>
-                                        <img class="rounded-md" class="search__photo" src="@if(@isset($program->partPhoto)){{ Storage::url('image/programs/thumbnail/'. $program->partPhoto) }}
+                @foreach($result as $program)
+                    <a href="{{ route('program.show', ['program'=>$program->id]) }}">
+                    <div class="grid sm:grid-cols-3 md:grid-cols-6">
+                        <div class="sm:w-10 md:w-20">
+                            <figure>
+                                <img class="rounded-md" class="search__photo" src="@if(@isset($program->partPhoto)){{ Storage::url('image/programs/thumbnail/'. $program->partPhoto) }}
                                      @else
                                     {{ Storage::url('image/no_image.png') }}
                                     @endif"
-                                             alt="Image"/>
-                                    </figure>
-                                </div>
-                            </td>
-                            <td>{{ $program->partType->title ?? 'Не указано' }}</td>
-                            <td>{{ $program->machine->title ?? 'Не указано' }} </td>
-                            <td>{{ $program->user->name ?? 'Не указано' }}</td>
-                            <td>
-                                <div class="h-full flex gap-2">
-                                    @isset($program->material->color)
-                                        @include('components.materialColour' , ['color' => $program->material->color] )
-                                    @endisset
-                                    {{ $program->material->title ?? 'Не указано' }}
-                                </div>
-                            </td>
-                            <td>{{ $program->created_at->format('Y-m-d') }}</td>
-                        </tr>
+                                     alt="Image"/>
+                            </figure>
+                        </div>
 
-                    @endforeach
-                </table>
+                        <div class="truncate w-52" title="{{ $program->partNumber }}">
+                            <a href="{{ route('program.show', ['program'=>$program->id]) }}">{{ $program->partNumber }}</a>
+                        </div>
 
-                {{$result->links()}}
+                        <div>{{ $program->partType->title ?? 'Не указано' }}</div>
+                        <div>{{ $program->machine->title ?? 'Не указано' }} </div>
+                        <div>{{ $program->user->name ?? 'Не указано' }}</div>
+                        <div>
+                            <div class="h-full flex gap-2">
+                                @isset($program->material->color)
+                                    @include('components.materialColour' , ['color' => $program->material->color] )
+                                @endisset
+                                {{ $program->material->title ?? 'Не указано' }}
+                            </div>
+                        </div>
+                        <td>{{ $program->created_at->format('Y-m-d') }}</td>
+
+                    </div>
+                    </a>
+                @endforeach
             </div>
+
+            {{$result->links()}}
 
         @elseif(isset($result) && !isset($searchIndex))
             <div class="grid justify-items-center mt-10 ">

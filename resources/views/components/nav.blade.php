@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100 ">
+<div class="navbar bg-base-100">
     <div class="flex-1">
         <div class="btn-group btn-group ">
 
@@ -9,8 +9,11 @@
             @endif
         </div>
     </div>
+
     @guest
-        <p>В гостевом доступе доступен только поиск и просмотр программ. Залогиньтесь -> </p>
+        <div class="hidden lg:block ">
+            <span>В гостевом доступе доступен только поиск и просмотр программ. Залогиньтесь -> </span>
+        </div>
     @endguest
     <div class="flex-none">
 
@@ -82,7 +85,7 @@
                                placeholder="Таб. номер">
                         <input type="password" name="password"
                                class="input input-bordered w-full max-w-xs @error('tabNumber') input-error @enderror"
-                        placeholder="Пароль">
+                               placeholder="Пароль">
                         <button class="btn">Войти</button>
                     </form>
                 @endauth

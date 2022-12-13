@@ -5,7 +5,7 @@
 @section('content')
     <form action="{{ route('program.update', $program->id) }}" method="POST" enctype="multipart/form-data">
         @csrf @method('PUT')
-        <div class="grid grid-cols-3 gap-4 ">
+        <div class="grid md:grid-cols-1 xl:grid-cols-3 gap-4 ">
             <div class="grid grid-rows-4">
                 <div class="w-full flex justify-center mb-5" >
                     <img src="@if (@isset($program->partPhoto)) {{ Storage::url('image/programs/thumbnail/'. $program->partPhoto)  }}
@@ -188,6 +188,7 @@
                           placeholder="Program text"
                     @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->text_1 }}</textarea>
             </div>
+
             <div class="relative">
                 <input type="text"
                        name="title_2"
