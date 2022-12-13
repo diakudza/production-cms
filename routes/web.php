@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\PartTypeController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TaskController;
@@ -25,7 +26,15 @@ Route::get('/searchParts', [SearchController::class, 'search'])->name('search.pa
 Route::get('/getprogram/{program}/{n}', [ProgramController::class, 'getProgram'])->name('program.getProgram');
 Route::resource('program', ProgramController::class)->except(['index']);
 
-Route::resource('task', TaskController::class);
+
+Route::controller(TaskController::class)->prefix('task')->name('task.')->group(function (){
+    Route::get('/', 'index')->name('index');
+    Route::get('/{task}', 'show')->name('show');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::put('/{task}', 'update')->name('update');
+    Route::delete('/{taskStatus}/{task}', 'destroy')->name('destroy');
+});
 
 //auth routes
 Route::group(['middleware' => 'auth'], function () {
@@ -42,7 +51,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
     Route::resource('machine', MachineController::class);
     Route::resource('news', NewsController::class);
     Route::resource('material', MaterialController::class);
-
+    Route::resource('partType', PartTypeController::class);
     Route::get('/', AdminMainController::class)->name('index');
 });
 

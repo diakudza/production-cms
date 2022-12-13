@@ -58,7 +58,9 @@ class TaskController extends Controller
             return redirect()->route('task.create', '#' . $request->input('machine_id'))
                 ->with('success', 'Задание добавлено');
         }
-        return redirect()->back()->with('fail', 'Задание не добавлено');
+        return redirect()
+            ->route('task.show', $validated['taskStatus'] ?? NULL . '#' . $request->input('machine_id'))
+            ->with('fail', 'Задание не добавлено');
     }
 
     /**
@@ -124,10 +126,11 @@ class TaskController extends Controller
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function destroy(Task $task): RedirectResponse
+    public function destroy(string $taskStatus, Task $task): RedirectResponse
     {
         $task->deleteOrFail();
-        return redirect()->route('task.create', '#' . $task->machine_id)
+        return redirect()
+            ->route('task.show', $taskStatus)
             ->with('success', 'Задание удалено!');
     }
 }

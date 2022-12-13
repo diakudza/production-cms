@@ -7,10 +7,10 @@
     <div class="grid grid-cols-2 gap-4">
 
         @include('components.news')
-
         <div class="">
             <div>
-                <p class="text-4xl mb-10">Последние добавленные программы</p>
+                @include('components.rating')
+                <p class="text-2xl mb-10 mt-10">Последние добавленные программы</p>
                 <table class="table w-full table-compact">
                     @foreach ($programs as $program)
                         <tr>
@@ -20,7 +20,7 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('search.part', ['author_id'=>$program->user->id]) }}">
+                                <a href="{{ route('search.part', ['author'=>$program->user->id]) }}">
                                 {{ $program->user->name }}
                                 </a>
                             </td>

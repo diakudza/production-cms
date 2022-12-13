@@ -3,7 +3,7 @@
 @section('title', 'Материалы')
 
 @section('content')
-    <a class="btn" href="{{route('admin.material.create')}}">Добавть материал</a>
+    <a class="btn" href="{{route('admin.material.create')}}">Добавить материал</a>
     <table class="table table-zebra w-full mt-5">
         <th>№</th>
         <th>Обозначение</th>

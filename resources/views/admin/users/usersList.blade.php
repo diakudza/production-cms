@@ -1,3 +1,4 @@
+@php use Carbon\Carbon; @endphp
 @extends('layouts.app')
 
 @section('title', 'Пользователи')
@@ -38,10 +39,12 @@
                 </td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->employmentDate }}</td>
-                <td> @if (\Carbon\Carbon::now()->week() % 2 != $user->shift->week)
-                        первая
-                    @else
-                        вторая
+                <td> @if ($user->status == 'WORKS')
+                        @if (Carbon::now()->week() % 2 != $user->shift->week)
+                            первая
+                        @else
+                            вторая
+                        @endif
                     @endif</td>
                 <td>{{ $user->position->title ?? null }}</td>
                 <td>@if($user->status == 'FIRED')

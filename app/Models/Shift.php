@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shift extends Model
 {
@@ -11,7 +12,7 @@ class Shift extends Model
 
     protected $fillable = ['number', 'start_time', 'end_time', 'week'];
 
-    public function users()
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

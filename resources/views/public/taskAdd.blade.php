@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="{{route('task.destroy', $task)}}" class="col-start-6" method="POST">
+                        <form action="{{route('task.destroy', [request()->route()->parameters['task'], $task])}}" class="col-start-6" method="POST">
                             @csrf @method('DELETE')
                             <button class="btn btn-error btn-xs">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"

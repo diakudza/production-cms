@@ -62,7 +62,7 @@
                             </li>
                         @else
                             <li>
-                                <a href="{{ route('admin.index') }}">Админ Панель</a>
+                                <a href="{{ route('admin.user.index') }}">Админ Панель</a>
                             </li>
                         @endif
                     @endif
