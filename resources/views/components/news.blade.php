@@ -2,7 +2,7 @@
     <p class="text-2xl mb-10">Новости</p>
     @forelse ($news as $singleNews)
         @if(auth()->check() && auth()->user()->can('update', $singleNews))<a href="{{ route('admin.news.edit', $singleNews->id) }}">@endif
-        <div class="mb-5">
+        <div class="mb-5 ">
 
             <div class="indicator">
                 @if(request()->route()->getPrefix() == '/admin')
@@ -14,7 +14,7 @@
                 @endif
                 <p class="text-2xl">{{ $singleNews->title }}</p>
             </div>
-            <div>{{ $singleNews->text }}</div>
+            <div class="w-full">{{ $singleNews->text }}</div>
             <div>{{ $singleNews->user->name }} {{ $singleNews->created_at->format('Y-m-d') }}</div>
         </div>
         </a>

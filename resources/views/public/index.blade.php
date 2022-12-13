@@ -4,8 +4,8 @@
 
 @section('content')
 
-    <div class="grid  lg:grid-row-2 2xl:grid-cols-2 gap-4">
-        <div>
+    <div class="grid lg:grid-row-2 2xl:grid-cols-2 gap-4 ">
+        <div class="w-full">
             @include('components.news')
         </div>
         <div class="">
@@ -25,7 +25,7 @@
                                     {{ $program->user->name }}
                                 </a>
                             </td>
-                            <td>
+                            <td class="hidden md:block">
                                 {{ $program->created_at->format('Y-m-d') }}
                             </td>
                         </tr>
@@ -33,7 +33,7 @@
                 </table>
             </div>
             @if(session()->has('viewed'))
-                <div class="mt-10">
+                <div class="mt-10 w-full overflow-hidden">
                     Просмотренные программы:
                     <div>
                         @foreach(session()->get('viewed') as $id=> $item )

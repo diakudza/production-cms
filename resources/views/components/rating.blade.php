@@ -14,7 +14,7 @@
 
             </div>
         </a>
-        @if ($loop->iteration == 5 )
+        @if ($loop->iteration == 4 )
             @break
         @endif
     @endforeach
