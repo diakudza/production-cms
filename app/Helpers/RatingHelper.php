@@ -43,7 +43,7 @@ class RatingHelper
 
     public function getProgramCount()
     {
-        if (Cache::has('ProgramCount')) {
+        if (Cache::has('ProgramCount') && Cache::get('ProgramCount') != 0) {
             return Cache::get('ProgramCount');
         }
         Cache::remember('ProgramCount', 1000, function () {
