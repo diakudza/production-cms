@@ -5,7 +5,7 @@
 @section('content')
     <form action="{{ route('program.store') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="grid grid-cols-3 gap-4 ">
+        <div class="grid md:grid-cols-1 xl:grid-cols-3 gap-4 ">
             <div class="grid grid-rows-4">
                 <div class="mb-5">
                     <input type="file" name="partPhoto"

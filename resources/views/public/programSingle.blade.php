@@ -117,7 +117,7 @@
 
                 <div class="v-full mt-5">
                 <textarea name="description"
-                          class="textarea textarea-bordered resize-none w-full h-3/4 mb-10"
+                          class="textarea textarea-bordered resize-none w-full  h-3/4 mb-10"
                           @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                           placeholder="Описание не указанно">{{ $program->description ?? NULL}}</textarea>
                 </div>
@@ -155,7 +155,7 @@
 
             </div>
 
-            <div class="relative">
+            <div class="relative v-50">
                 <input type="text"
                        name="title_1"
                        class="input input-bordered max-w-xs @error('title_1') input-error @enderror"

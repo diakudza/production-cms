@@ -5,7 +5,7 @@
 @section('content')
     <div class="text-3xl">Страница профиля пользователя</div>
 
-    <div class="grid grid-cols-2 gap-4 mt-10">
+    <div class="grid grid-rows-1 xl:grid-cols-2 gap-4 mt-10">
 
         <div class="border rounded p-5">
 

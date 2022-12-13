@@ -1,5 +1,5 @@
 <p class="text-2xl mb-10">Рейтинг наладчиков</p>
-<div class="flex justify-center xl:gap-10 md:gap-4 ">
+<div class="flex gap-1 justify-center xl:gap-10 sm:gap-4 ">
 
     @foreach($rating as $user)
         <a href="{{ route('search.part', ['author'=>$user['user_id']]) }}" title="{{$user['name']}}">
