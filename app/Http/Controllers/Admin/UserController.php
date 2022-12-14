@@ -47,13 +47,20 @@ class UserController extends Controller
     {
         $programs = Program::with(['user', 'machine'])
             ->whereRelation('user', 'id', '=', $user->id)
+            ->OrderBy('partNumber')
             ->get();
+
+        $lastLogin = $user->logins()
+            ->where('success','=', 1)
+            ->OrderBy('created_at', 'DESC')
+            ->first();
 
         return view('admin.users.userSingle', [
             'user' => $user,
             'shifts' => Shift::all(),
             'positions' => Position::all(),
-            'programs' => $programs
+            'programs' => $programs,
+            'lastLogin' => $lastLogin
         ]);
     }
 

@@ -83,6 +83,11 @@ class User extends Authenticatable
         return $this->belongsTo(Theme::class);
     }
 
+    public function logins(): HasMany
+    {
+        return $this->hasMany(Login::class,'tabNumber','tabNumber');
+    }
+
     /**
      * @return mixed
      */

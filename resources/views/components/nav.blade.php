@@ -57,6 +57,9 @@
                                 <a href="{{ route('admin.user.index') }}">Админ Панель</a>
                             </li>
                         @endif
+                            <li>
+                                <a href="{{ route('admin.log') }}">Статистика</a>
+                            </li>
                     @endif
 
                     <li>

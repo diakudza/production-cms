@@ -23,6 +23,12 @@
                            class="file-input file-input-bordered w-full max-w-xs
                            @error('avatar') file-input-error @enderror"/>
                 </div>
+
+                @if($lastLogin)
+                    <div class="mt-5">
+                        <span>Последний вход: {{$lastLogin->created_at }}</span>
+                    </div>
+                @endif
             </div>
             <div class="card gap-2">
 
@@ -159,14 +165,14 @@
             <table>
                 @forelse($programs as $program)
                     <div class="flex gap-3 w-full ">
-                        <div class="w-10"><a href="{{route('program.show', $program->id)}}">{{ $program->id }}</a></div>
+                        <div class="w-10">{{$loop->iteration}}</div>
                         <div class="w-96"><a
                                 href="{{route('program.show', $program->id)}}">{{ $program->partNumber }}</a>
                         </div>
 
                     </div>
                 @empty
-                    <p>Пока не добалены</p>
+                    <p>Пока не добавлены</p>
                 @endforelse
             </table>
         </div>

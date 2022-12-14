@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\MachineController;
 use App\Http\Controllers\Admin\MainController as AdminMainController;
 use App\Http\Controllers\Admin\MaterialController;
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
     Route::resource('news', NewsController::class);
     Route::resource('material', MaterialController::class);
     Route::resource('partType', PartTypeController::class);
-    Route::get('/', AdminMainController::class)->name('index');
+//    Route::get('/', AdminMainController::class)->name('index');
+    Route::get('/log', LogController::class)->name('log');
 });
 
