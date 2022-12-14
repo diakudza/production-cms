@@ -31,7 +31,7 @@ class UserUpdateRequest extends FormRequest
             'employmentDate' => ['nullable', 'date'],
             'dateOfDismissal' => ['nullable', 'date'],
             'status' => ['nullable', 'in:WORKS,FIRED'],
-            'role' => ['nullable', 'in:ADMIN,USER'],
+            'role' => ['nullable', 'in:ADMIN,USER,GUEST,SERVICE'],
             'phone' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'avatar' => ['nullable', 'image'],

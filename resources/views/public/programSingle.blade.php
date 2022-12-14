@@ -1,3 +1,5 @@
+@php use App\Enums\MaterialType; @endphp
+
 @extends('layouts.app')
 
 @section('title', 'Программа')
@@ -78,10 +80,9 @@
                                 class="select select-bordered col-start-3 col-end-4
                             @error(old('materialType')) select-error @enderror"
                             @disabled(!auth()->user() || !auth()->user()->can('update', $program))>
-                            <option value="round" @selected($program->materialType == 'round')>Круг</option>
-                            <option value="hexagon" @selected($program->materialType == 'hexagon')>Шестигранник</option>
-                            <option value="tube" @selected($program->materialType == 'tube')>Труба</option>
-                            <option value="square" @selected($program->materialType == 'square')>Квадрат</option>
+                            @foreach(MaterialType::cases() as $item)
+                                <option value="{{ $item->name }}" @selected($program->materialType == $item->name)>{{$item}}</option>
+                            @endforeach
                         </select>
                         <input type="text" name="materialDiameter"
                                @disabled(!auth()->user() || !auth()->user()->can('update', $program))

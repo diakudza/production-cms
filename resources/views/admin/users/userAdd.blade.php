@@ -1,3 +1,9 @@
+@php
+    use App\Enums\UserStatus;
+    use App\Enums\UserRole;
+    use Carbon\Carbon;
+@endphp
+
 @extends('layouts.app')
 
 @section('title', "Новый пользователь")
@@ -55,7 +61,7 @@
                     <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
                         @foreach($shifts as $shift)
                             <option value="{{ $shift->id }}" @selected(old('shift_id') == $shift->id)>
-                                {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % 2 )
+                                {{ $shift->number }} , на этой неделе @if (Carbon::now()->week() % 2 )
                                     первая
                                 @else
                                     вторая
@@ -81,12 +87,11 @@
                     </div>
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
-                        <option value="{{ \App\Enums\UserStatus::FIRED }}"
-                            @selected(old('status') == \App\Enums\UserStatus::FIRED)>Уволен
-                        </option>
-                        <option value="{{ \App\Enums\UserStatus::WORKS }}"
-                            @selected(old('status') == \App\Enums\UserStatus::WORKS)>Работает
-                        </option>
+                        @foreach(UserStatus::cases() as $item)
+                            <option value="{{ $item->name }}"
+                                @selected(old('status') == $item->name)>{{ $item }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -96,12 +101,11 @@
                     </div>
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
-                        <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                            @selected(old('role') == \App\Enums\UserRole::ADMIN)>Администратор
-                        </option>
-                        <option value="{{ \App\Enums\UserRole::USER }}"
-                            @selected(old('role') == \App\Enums\UserRole::USER)>Пользователь
-                        </option>
+                        @foreach(UserRole::cases() as $item)
+                            <option value="{{ $item->name }}"
+                                @selected(old('role') == $item->name)>{{$item->value}}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -143,8 +147,6 @@
             </div>
         </div>
     </form>
-
-
 
 @endsection
 

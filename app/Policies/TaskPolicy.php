@@ -51,8 +51,6 @@ class TaskPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param User $user
-     * @param Task $task
      * @return Response|bool
      */
     public function update(): Response|bool

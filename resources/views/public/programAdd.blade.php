@@ -1,3 +1,4 @@
+@php use App\Enums\MaterialType; @endphp
 @extends('layouts.app')
 
 @section('title', 'Добавить программу')
@@ -73,10 +74,9 @@
                                 class="select select-bordered col-start-3 col-end-4
                             @error('materialType') select-error @enderror">
                             <option disabled @if (!old('materialType'))selected @endif >ТИП</option>
-                            <option value="round" @selected(old('materialType') == 'round')>Круг</option>
-                            <option value="hexagon" @selected(old('materialType')== 'hexagon')>Шестигранник</option>
-                            <option value="tube" @selected(old('materialType') == 'tube'))>Труба</option>
-                            <option value="square" @selected(old('materialType') == 'square')>Квадрат</option>
+                            @foreach(MaterialType::cases() as $item)
+                                <option value="{{ $item->name }}" @selected(old('materialType') == $item->name)>{{$item}}</option>
+                            @endforeach
                         </select>
 
                         <input type="text" name="materialDiameter"
@@ -89,7 +89,8 @@
 
                 <div class="mt-10">
                 <textarea name="description"
-                    class="textarea textarea-bordered resize-none w-full h-3/4 mb-10" placeholder="Описание"></textarea>
+                          class="textarea textarea-bordered resize-none w-full h-3/4 mb-10"
+                          placeholder="Описание"></textarea>
                 </div>
 
                 <div class="v-full flex justify-between ">

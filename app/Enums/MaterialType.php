@@ -2,9 +2,9 @@
 
 namespace App\Enums;
 
-class MaterialType
-{
-    public const KK = 'КК';
-    public const SK = 'ШК';
-    public const TUBE = 'Труба';
+enum MaterialType : string {
+    case round = 'Круг';
+    case hexagon = 'Шестигранник';
+    case tube = 'Труба';
+    case square = 'Квадрат';
 }

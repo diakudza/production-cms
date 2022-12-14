@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->date('employmentDate')->nullable();
             $table->enum('status', ['WORKS', 'FIRED'])->nullable();
             $table->enum('role', ['USER', 'ADMIN', 'SERVICE', 'GUEST'])->default('USER');
+            $table->index('tabNumber');
         });
     }
 

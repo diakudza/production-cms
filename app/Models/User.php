@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\UserRole;
+use App\Enums\UserStatus;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -98,13 +99,13 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->role === UserRole::ADMIN;
+        return $this->role === UserRole::ADMIN->name;
     }
 
     public function getWorkingDays(): int|string
     {
         $created = new Carbon($this->employmentDate);
-        if (auth()->user()->status == 'WORKS') {
+        if (auth()->user()->status == UserStatus::WORKS) {
             $date = Carbon::now();
         }else {
             $date = auth()->user()->dateOfDismissal;

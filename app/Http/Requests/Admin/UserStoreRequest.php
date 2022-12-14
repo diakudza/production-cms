@@ -31,7 +31,7 @@ class UserStoreRequest extends FormRequest
             'shift_id' => ['required', 'numeric', 'in:0,1,2'],
             'employmentDate' => ['required', 'date'],
             'status' => ['required', 'in:WORKS,FIRED'],
-            'role' => ['nullable', 'in:ADMIN,USER'],
+            'role' => ['nullable', 'in:ADMIN,USER,GUEST,SERVICE'],
             'phone' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'avatar' => ['nullable', 'image'],

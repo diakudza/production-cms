@@ -1,4 +1,4 @@
-@php use Carbon\Carbon; @endphp
+@php use App\Enums\UserStatus;use Carbon\Carbon; @endphp
 @extends('layouts.app')
 
 @section('title', 'Пользователи')
@@ -39,7 +39,7 @@
                 </td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->employmentDate }}</td>
-                <td> @if ($user->status == 'WORKS')
+                <td> @if ($user->status == UserStatus::WORKS)
                         @if (Carbon::now()->week() % 2 != $user->shift->week)
                             первая
                         @else
@@ -47,11 +47,13 @@
                         @endif
                     @endif</td>
                 <td>{{ $user->position->title ?? null }}</td>
-                <td>@if($user->status == 'FIRED')
+                <td>
+                    @if($user->status == UserStatus::FIRED)
                         уволен
                     @else
                         работает
-                    @endif</td>
+                    @endif
+                </td>
                 <td>{{ $user->role }}</td>
             </tr>
         @endforeach

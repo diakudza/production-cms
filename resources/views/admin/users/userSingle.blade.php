@@ -1,4 +1,9 @@
-@php use App\Enums\UserStatus;use Approle\Enums\UserRole; @endphp
+@php
+    use App\Enums\UserStatus;
+    use App\Enums\UserRole;
+    use Carbon\Carbon;
+@endphp
+
 @extends('layouts.app')
 
 @section('title', "Пользователь $user->name")
@@ -64,7 +69,7 @@
                     </select>
                 </div>
 
-                @if($user->status == 'WORKS')
+                @if($user->status == UserStatus::WORKS)
                     <div class="grid grid-cols-4 ">
                         <div class="programm__edit">
                             <span>Смена</span>
@@ -72,7 +77,7 @@
                         <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
                             @foreach($shifts as $shift)
                                 <option value="{{ $shift->id }}" @selected($user->shift_id == $shift->id)>
-                                    {{ $shift->number }} , на этой неделе @if (\Carbon\Carbon::now()->week() % 2 )
+                                    {{ $shift->number }} , на этой неделе @if (Carbon::now()->week() % 2 )
                                         первая
                                     @else
                                         вторая
@@ -100,15 +105,14 @@
                     </div>
 
                     <select name="status" class="select select-bordered col-start-2 col-end-5">
-                        <option value="{{ UserStatus::FIRED }}"
-                            @selected($user->status == UserStatus::FIRED)>Уволен
-                        </option>
-                        <option value="{{ UserStatus::WORKS }}"
-                            @selected($user->status == UserStatus::WORKS)>Работает
-                        </option>
+                        @foreach(UserStatus::cases() as $item)
+                            <option value="{{ $item->name }}"
+                                @selected($user->status == $item->name)>{{ $item }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
-                @if($user->status == 'FIRED')
+                @if($user->status == UserStatus::FIRED)
                     <div class="grid grid-cols-4 ">
                         <div class="programm__edit">
                             <span>Дата увольнения</span>
@@ -126,12 +130,11 @@
                     </div>
 
                     <select name="role" class="select select-bordered col-start-2 col-end-5">
-                        <option value="{{ \App\Enums\UserRole::ADMIN }}"
-                            @selected($user->role == \App\Enums\UserRole::ADMIN)>Администратор
-                        </option>
-                        <option value="{{ \App\Enums\UserRole::USER }}"
-                            @selected($user->role == \App\Enums\UserRole::USER)>Пользователь
-                        </option>
+                        @foreach(UserRole::cases() as $item)
+                            <option value="{{ $item->name }}"
+                                @selected($user->role == $item->name)>{{$item->value}}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 

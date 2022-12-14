@@ -2,8 +2,7 @@
 
 namespace App\Enums;
 
-class UserStatus
-{
-    public const WORKS = 'WORKS';
-    public const FIRED = 'FIRED';
+enum UserStatus : string {
+    case WORKS = 'Работает';
+    case FIRED = 'Уволен';
 }

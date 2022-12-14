@@ -2,8 +2,9 @@
 
 namespace App\Enums;
 
-class UserRole
-{
-    public const USER = 'USER';
-    public const ADMIN = 'ADMIN';
+enum UserRole : string {
+    case USER = 'Пользователь';
+    case ADMIN = 'Администратор';
+    case GUEST = 'Гость';
+    case SERVICE = 'Сервис';
 }
