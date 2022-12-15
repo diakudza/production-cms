@@ -14,7 +14,9 @@
        class="btn btn-sm md:btn-md disabled @if(request()->route()->getName() == 'program.create') btn-active @endif">
         <div>
             <div> Добавить новую</div>
-            @cannot('create', Program::class)<div class="text-xs">(Вам не доступно)</div>@endcannot
+            @cannot('create', Program::class)
+                <div class="text-xs">(Вам не доступно)</div>
+            @endcannot
         </div>
     </a>
 

@@ -1,15 +1,22 @@
 <div class="navbar bg-base-100">
     <div class="flex-1">
-        <div class="dropdown  md:hidden sm:block">
+        <div class="dropdown absolute w-full md:hidden sm:block">
             <label tabindex="0" class="btn btn-ghost btn-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
             </label>
-            <ul tabindex="0" class="menu menu-compact border dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                @include('components.navLink')
+            <ul tabindex="0"
+                class="menu  dropdown-content mt-3 w-full absolute shadow bg-base-100 gap-2 rounded-box ">
+                @if(request()->route()->getPrefix() == '/admin')
+                    @include('components.navLinkAdmin')
+                @else
+                    @include('components.navLink')
+                @endif
             </ul>
         </div>
-{{--    </div>--}}
-        <div class=" btn-group btn-group-horizontal hidden md:flex">
+        <div class="btn-group btn-group-horizontal hidden md:flex">
             @if(request()->route()->getPrefix() == '/admin')
                 @include('components.navLinkAdmin')
             @else
@@ -38,7 +45,7 @@
                 </div>
             </label>
             <ul tabindex="0"
-                class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box border w-52">
+                class="menu  dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box border w-52">
                 @auth()
                     <li>
                         <a href="{{ route('user.index') }}">
@@ -57,9 +64,9 @@
                                 <a href="{{ route('admin.user.index') }}">Админ Панель</a>
                             </li>
                         @endif
-                            <li>
-                                <a href="{{ route('admin.log') }}">Статистика</a>
-                            </li>
+                        <li>
+                            <a href="{{ route('admin.log') }}">Статистика</a>
+                        </li>
                     @endif
 
                     <li>

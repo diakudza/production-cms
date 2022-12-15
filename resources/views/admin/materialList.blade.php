@@ -3,33 +3,36 @@
 @section('title', 'Материалы')
 
 @section('content')
-    <a class="btn" href="{{route('admin.material.create')}}">Добавить материал</a>
-    <table class="table table-zebra w-full mt-5">
-        <th>№</th>
-        <th>Обозначение</th>
-        <th>Маркировка</th>
-        <th>Описание</th>
-
+    <a class="btn  mb-5"" href="{{route('admin.material.create')}}">Добавить материал</a>
+    <div class="grid grid-flow-col border-b-2">
+        <div>№</div>
+        <div>Обозначение</div>
+        <div>Маркировка</div>
+        <div>Описание</div>
+    </div>
         @foreach($materials as $material)
 
             @php
                 $colorFromDb = explode(',', $material->color);
             @endphp
 
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>
-                    <div><a href="{{ route('admin.material.edit', $material->id) }}">{{ $material->title }}</a></div>
-                </td>
-                <td>
+            <a href="{{ route('admin.material.edit', $material->id) }}">
+
+            <div class="grid grid-flow-col h-10 hover:bg-base-300 shadow-xl mt-5 bg-base-500">
+                <div class="b w-10">{{$loop->iteration}}</div>
+                <div class="w-40">
+                    <div>{{ $material->title }}</div>
+                </div>
+                <div class="w-32">
                     @isset($material->color)
                         @include('components.materialColour', ['color' => $material->color])
                     @endisset
-                </td>
-                <td>
+                </div>
+                <div class="w-40">
                     {{ $material->description }}
-                </td>
-            </tr>
+                </div>
+            </div>
+            </a>
         @endforeach
     </table>
 @endsection

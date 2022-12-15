@@ -5,17 +5,17 @@
 @section('content')
 
     @foreach($positions as $position)
-        <div class=" w-full bg-neutral text-neutral-content mt-5 rounded-lg p-2">
+        <div class=" w-full hover:bg-base-300 shadow-xl bg-base-500 text-neutral-content mt-5 rounded-lg p-2">
             <div>
                 <form action=" {{route('admin.position.update', $position->id)}}" method="post"
-                      class=" w-full bg-neutral text-neutral-content mt-10 flex flex-row justify-between">
+                      class=" w-full text-neutral-content mt-10 flex flex-col md:flex-row justify-between">
                     @csrf @method('PUT')
 
                     <input type="text" name="title"
                            class="input select-bordered w-full @error('title') select-error @enderror"
                            placeholder="Должность" title="Должность"
                            value="{{ $position->title }}">
-
+<div class="flex flex-row">
                     <button class="btn btn-accent">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                              xmlns="http://www.w3.org/2000/svg">
@@ -31,11 +31,11 @@
                                   d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                         </svg>
                     </label>
-
+</div>
                 </form>
 
-                <div>Содержит пользователей:
-                    <div class="flex flex-row gap-4">
+                <div >Содержит пользователей:
+                    <div class="flex flex-col md:flex-row gap-4">
                         @foreach($position->users as $user)
                             <div><a href="{{ route('admin.user.show', $user->id) }}">{{ $user->name }}</a></div>
                         @endforeach
@@ -45,10 +45,10 @@
         </div>
     @endforeach
 
-    <div class=" w-full bg-neutral text-neutral-content mt-10 p-5 rounded-md">
+    <div class=" w-full hover:bg-base-300 shadow-xl bg-base-500 text-neutral-content mt-10 p-5 rounded-md">
         <P>Добавить новую должность</P>
         <form action="{{route('admin.position.store')}}" method="post"
-              class=" w-full bg-neutral text-neutral-content mt-10 flex flex-row justify-between">
+              class=" w-full text-neutral-content mt-10 flex flex-row justify-between">
             @csrf
             <input type="text" name="title"
                    class="input input-bordered w-full @error('title') select-error @enderror"

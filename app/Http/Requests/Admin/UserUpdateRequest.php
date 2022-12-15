@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Enums\UserRole;
+use App\Rules\UserRoleRule;
+use App\Rules\UserStatusRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -30,8 +34,8 @@ class UserUpdateRequest extends FormRequest
             'shift_id' => ['nullable', 'numeric', 'in:0,1,2'],
             'employmentDate' => ['nullable', 'date'],
             'dateOfDismissal' => ['nullable', 'date'],
-            'status' => ['nullable', 'in:WORKS,FIRED'],
-            'role' => ['nullable', 'in:ADMIN,USER,GUEST,SERVICE'],
+            'status' => ['nullable',  new UserStatusRule],
+            'role' => ['nullable', new UserRoleRule],
             'phone' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'avatar' => ['nullable', 'image'],

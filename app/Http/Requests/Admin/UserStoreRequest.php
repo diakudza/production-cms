@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests\Admin;
 
+use App\Enums\UserRole;
+use App\Rules\UserRoleRule;
+use App\Rules\UserStatusRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UserStoreRequest extends FormRequest
 {
@@ -30,8 +34,8 @@ class UserStoreRequest extends FormRequest
             'position_id' => ['required', 'numeric', 'exists:positions,id'],
             'shift_id' => ['required', 'numeric', 'in:0,1,2'],
             'employmentDate' => ['required', 'date'],
-            'status' => ['required', 'in:WORKS,FIRED'],
-            'role' => ['nullable', 'in:ADMIN,USER,GUEST,SERVICE'],
+            'status' => ['required', new UserStatusRule],
+            'role' => ['required', new UserRoleRule],
             'phone' => ['nullable', 'string'],
             'description' => ['nullable', 'string'],
             'avatar' => ['nullable', 'image'],

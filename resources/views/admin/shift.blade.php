@@ -5,9 +5,9 @@
 @section('content')
 
     @foreach($shifts as $shift)
-        <div class=" w-full bg-neutral text-neutral-content mt-5 rounded-lg p-2">
+        <div class=" w-full hover:bg-base-300 shadow-xl bg-base-500 text-neutral-content mt-5 rounded-lg p-2">
             <form action=" {{route('admin.shift.update', $shift->id)}}" method="post"
-                  class=" w-full bg-neutral text-neutral-content mt-10 flex flex-row justify-between">
+                  class=" w-full text-neutral-content mt-10 flex flex-col md:flex-row justify-between">
                 @csrf @method('PUT')
                 <input type="text" name="number"
                        class="input input-bordered w-25 @error('number') select-error @enderror"
@@ -21,7 +21,7 @@
                        class="input select-bordered col-start-2 col-end-5 @error('end_time') select-error @enderror"
                        placeholder="D"
                        value="{{ $shift->end_time }}">
-                <div class="flex flex-col justify-center ">
+                <div class="flex flex-row mt-2 md:flex-col justify-center ">
                     <input type="checkbox" name="week" value="1"
                            @checked($shift->week == 1) class="checkbox @error('week') checkbox-error @enderror"/>
                     <p>Четная неделя</p>
@@ -47,7 +47,7 @@
 
             </form>
             <div>Содержит пользователей:
-                <div class="flex flex-row gap-4">
+                <div class="flex flex-col md:flex-row gap-4">
                     @foreach($shift->users as $user)
                         <div><a href="{{ route('admin.user.show', $user->id) }}">{{ $user->name }}</a></div>
                     @endforeach
@@ -56,10 +56,10 @@
         </div>
     @endforeach
 
-    <div class=" w-full bg-neutral text-neutral-content mt-10 p-5 rounded-md">
+    <div class=" w-full hover:bg-base-300 text-neutral-content mt-10 p-5 rounded-md">
         <P>Добавить новую смену</P>
         <form action="{{route('admin.shift.store')}}" method="post"
-              class=" w-full bg-neutral text-neutral-content mt-10 flex flex-row justify-between">
+              class=" w-full text-neutral-content mt-10 flex flex-col md:flex-row justify-between">
             @csrf
             <input type="text" name="number"
                    class="input input-bordered w-25 @error('number') select-error @enderror"
@@ -86,7 +86,11 @@
 
             <div>
                 <button class="btn btn-accent">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
                 </button>
 
                 <label for="my-modal" class="btn btn-error" title="Удалить программу">

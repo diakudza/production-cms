@@ -61,7 +61,7 @@
                     <div class="programm__edit">
                         <span>Должность</span>
                     </div>
-                    <select name="position_id" class="select select-bordered col-start-2 col-end-5">
+                    <select name="position_id" class="select select-bordered col-start-2 col-end-5 @error('position_id') select-error @enderror">
                         @foreach($positions as $position)
                             <option value="{{ $position->id }}"
                                 @selected($user->position_id == $position->id)>{{ $position->title }}</option>
@@ -74,7 +74,7 @@
                         <div class="programm__edit">
                             <span>Смена</span>
                         </div>
-                        <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
+                        <select name="shift_id" class="select select-bordered col-start-2 col-end-5 @error('shift_id') select-error @enderror">
                             @foreach($shifts as $shift)
                                 <option value="{{ $shift->id }}" @selected($user->shift_id == $shift->id)>
                                     {{ $shift->number }} , на этой неделе @if (Carbon::now()->week() % 2 )
@@ -104,7 +104,7 @@
                         <span>Статус</span>
                     </div>
 
-                    <select name="status" class="select select-bordered col-start-2 col-end-5">
+                    <select name="status" class="select select-bordered col-start-2 col-end-5  @error('status') select-error @enderror">
                         @foreach(UserStatus::cases() as $item)
                             <option value="{{ $item->name }}"
                                 @selected($user->status == $item->name)>{{ $item }}
@@ -112,7 +112,7 @@
                         @endforeach
                     </select>
                 </div>
-                @if($user->status == UserStatus::FIRED)
+                @if ($user->status == UserStatus::FIRED)
                     <div class="grid grid-cols-4 ">
                         <div class="programm__edit">
                             <span>Дата увольнения</span>
@@ -129,7 +129,7 @@
                         <span>Роль</span>
                     </div>
 
-                    <select name="role" class="select select-bordered col-start-2 col-end-5">
+                    <select name="role" class="select select-bordered col-start-2 col-end-5 @error('role') select-error @enderror">
                         @foreach(UserRole::cases() as $item)
                             <option value="{{ $item->name }}"
                                 @selected($user->role == $item->name)>{{$item->value}}
