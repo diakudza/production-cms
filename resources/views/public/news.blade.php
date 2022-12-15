@@ -1,11 +1,12 @@
+@php use App\Models\News; @endphp
 @extends('layouts.app')
 
 @section('title', 'Новости')
 
 @section('content')
-
-    <a class="btn mb-10" href="{{ route('admin.news.create') }}">Добавать новость</a>
-
+    @can('create', News::class)
+        <a class="btn mb-10" href="{{ route('news.create') }}">Добавить новость</a>
+    @endcan
     @include('components.news')
 
 @endsection

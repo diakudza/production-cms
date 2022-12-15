@@ -15,7 +15,7 @@ class MainController extends Controller
     {
         return view('public.index', [
             'programs' => $program->getLastPrograms(10),
-            'news' => News::with('user')->limit(10)->get(),
+            'news' => News::with('user')->OrderBy('created_at', 'DESC')->limit(4)->get(),
             'rating' => $rating->list
         ]);
 

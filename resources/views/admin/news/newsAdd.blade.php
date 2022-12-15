@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="flex">
-        <form action="{{ route('admin.news.store') }}" method="post" class="flex flex-col gap-4 w-full">
+        <form action="{{ route('news.store') }}" method="post" class="flex flex-col gap-4 w-full">
             @csrf @method('POST')
             <input type="hidden" name="user_id" value="{{ auth()->user()->id  }}">
             <div class="flex flex-col gap-2">

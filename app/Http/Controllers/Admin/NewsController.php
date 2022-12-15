@@ -20,12 +20,12 @@ class NewsController extends Controller
 
     public function edit(News $news)
     {
-        return view('admin.news.newsEdit', ['news' => $news]);
+        return view('news.newsEdit', ['news' => $news]);
     }
 
     public function create(News $news)
     {
-        return view('admin.news.newsAdd');
+        return view('news.newsAdd');
     }
     public function store(NewsStoreRequest $request, News $news)
     {

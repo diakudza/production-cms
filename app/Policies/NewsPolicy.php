@@ -45,7 +45,7 @@ class NewsPolicy
      */
     public function create(?User $user): Response|bool
     {
-        return auth()->user()->isAdmin();
+        return auth()->user() && auth()->user()->isAdmin();
     }
 
     /**

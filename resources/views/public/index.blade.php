@@ -6,6 +6,9 @@
 
     <div class="grid lg:grid-row-2 2xl:grid-cols-2 gap-4 ">
         <div class="w-full">
+
+            <a href="{{ route('news.index') }}" class="text-2xl">Новости</a>
+
             @include('components.news')
         </div>
         <div class="">

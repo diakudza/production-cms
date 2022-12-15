@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="flex flex-col">
-        <form action="{{ route('admin.news.update', $news->id) }}" method="post" class="flex flex-col gap-4 w-full">
+        <form action="{{ route('news.update', $news->id) }}" method="post" class="flex flex-col gap-4 w-full">
             @csrf @method('PUT')
             <input type="hidden" name="user_id" value="{{ $news->user_id }}">
             <div class="flex flex-col gap-2">
@@ -28,7 +28,7 @@
             </div>
             <button class="w-40 btn btn-success">Обновить</button>
         </form>
-        <form action="{{ route('admin.news.destroy', $news->id) }}" class="form-control gap-4">
+        <form action="{{ route('news.destroy', $news->id) }}" class="form-control gap-4">
             @csrf @method('PUT')
             <button class="w-40 btn btn-error">Удалить</button>
         </form>

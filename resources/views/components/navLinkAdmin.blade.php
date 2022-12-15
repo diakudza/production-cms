@@ -10,5 +10,5 @@
    class="btn  @if(request()->route()->getName() == 'admin.material.index') btn-active @endif">Материалы</a>
 <a href="{{ route('admin.partType.index') }}"
    class="btn  @if(request()->route()->getName() == 'admin.partType.index') btn-active @endif">Типы деталей</a>
-<a href="{{ route('admin.news.index') }}"
-   class="btn  @if(request()->route()->getName() == 'admin.news.index') btn-active @endif">Новости</a>
+<a href="{{ route('news.index') }}"
+   class="btn  @if(request()->route()->getName() == 'news.index') btn-active @endif">Новости</a>

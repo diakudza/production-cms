@@ -26,7 +26,7 @@ Route::get('/searchParts', [SearchController::class, 'search'])->name('search.pa
 
 Route::get('/getprogram/{program}/{n}', [ProgramController::class, 'getProgram'])->name('program.getProgram');
 Route::resource('program', ProgramController::class)->except(['index']);
-
+Route::resource('news', NewsController::class);
 
 Route::controller(TaskController::class)->prefix('task')->name('task.')->group(function (){
     Route::get('/', 'index')->name('index');
@@ -50,7 +50,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'as' => 'admin.'], f
     Route::resource('shift', ShiftController::class);
     Route::resource('position', PositionController::class);
     Route::resource('machine', MachineController::class);
-    Route::resource('news', NewsController::class);
+
     Route::resource('material', MaterialController::class);
     Route::resource('partType', PartTypeController::class);
 //    Route::get('/', AdminMainController::class)->name('index');
