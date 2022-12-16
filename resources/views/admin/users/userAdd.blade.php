@@ -11,13 +11,12 @@
 @section('content')
     <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-flow-row md:grid-cols-2 gap-4">
             <div>
                 <div class=" w-100 bg-base-100 ">
-
                     <input type="file"
                            name="avatar"
-                           class="file-input file-input-bordered w-full max-w-xs
+                           class="file-input file-input-bordered w-full md:max-w-xs
                            @error('avatar') file-input-error @enderror"/>
                 </div>
             </div>
@@ -29,7 +28,7 @@
                     </div>
                     <input type="text" name="tabNumber"
                            class="select select-bordered  col-start-2 col-end-5 @error('tabNumber') select-error @enderror"
-                           placeholder="Табельный номер"
+                           placeholder="Табельный номер" required
                            value="{{ old('tabNumber') }}">
                 </div>
 
@@ -40,6 +39,7 @@
                     <input type="text" name="name"
                            class="select select-bordered col-start-2 col-end-5 @error('name') select-error @enderror"
                            placeholder="Фио"
+                           required
                            value="{{ old('name') }}">
                 </div>
 
@@ -47,7 +47,9 @@
                     <div class="programm__edit">
                         <span>Должность</span>
                     </div>
-                    <select name="position_id" class="select select-bordered col-start-2 col-end-5">
+                    <select name="position_id"
+                            required
+                            class="select select-bordered col-start-2 col-end-5 @error('position_id') select-error @enderror">
                         @foreach($positions as $position)
                             <option value="{{ $position->id }}"
                                 @selected(old('position_id') == $position->id)>{{ $position->title }}</option>
@@ -58,7 +60,8 @@
                     <div class="programm__edit">
                         <span>Смена</span>
                     </div>
-                    <select name="shift_id" class="select select-bordered col-start-2 col-end-5">
+                    <select name="shift_id"
+                            class="select select-bordered col-start-2 col-end-5 @error('shift_id') select-error @enderror">
                         @foreach($shifts as $shift)
                             <option value="{{ $shift->id }}" @selected(old('shift_id') == $shift->id)>
                                 {{ $shift->number }} , на этой неделе @if (Carbon::now()->week() % 2 )
@@ -86,7 +89,9 @@
                         <span>Статус</span>
                     </div>
 
-                    <select name="status" class="select select-bordered col-start-2 col-end-5">
+                    <select name="status"
+                            required
+                            class="select select-bordered col-start-2 col-end-5 @error('status') select-error @enderror">
                         @foreach(UserStatus::cases() as $item)
                             <option value="{{ $item->name }}"
                                 @selected(old('status') == $item->name)>{{ $item }}
@@ -100,7 +105,9 @@
                         <span>Роль</span>
                     </div>
 
-                    <select name="role" class="select select-bordered col-start-2 col-end-5">
+                    <select name="role"
+                            required
+                            class="select select-bordered col-start-2 col-end-5 @error('role') select-error @enderror">
                         @foreach(UserRole::cases() as $item)
                             <option value="{{ $item->name }}"
                                 @selected(old('role') == $item->name)>{{$item->value}}
@@ -128,10 +135,12 @@
                     <input type="password" name="password"
                            class="select select-bordered  col-start-2 col-end-5 @error('phone') select-error @enderror"
                            placeholder="Пароль"
+                           required
                            value="">
                     <input type="password" name="password_confirmation"
                            class="select select-bordered  col-start-2 col-end-5 @error('phone') select-error @enderror"
-                           placeholder="Подтверждение парола"
+                           placeholder="Подтверждение пароля"
+                           required
                            value="">
                 </div>
 
@@ -141,9 +150,9 @@
                           placeholder="Описание не указанно">{{ old('description') }}</textarea>
                 </div>
 
-                <div class="grid grid-cols-2 w-full">
-                    <button href="" class="btn btn-success w-100">Добавить</button>
-                </div>
+
+                    <button class="btn btn-success w-full">Добавить</button>
+
             </div>
         </div>
     </form>

@@ -13,7 +13,7 @@ class SearchAction
         $machine = $query['machine_id'] ?? NULL;
         $author = $query['author'] ?? NULL;
         $partType = $query['partType'] ?? NULL;
-        $itemOnPage = $query['itemOnPage'] ?? 10;
+        $itemOnPage = $query['itemOnPage'] ?? 20;
         $sortBy = $query['sortBy'] ?? NULL;
 
         $programs = (new Program())

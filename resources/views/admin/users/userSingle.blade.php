@@ -11,18 +11,14 @@
 @section('content')
     <form action="{{ route('admin.user.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf @method('PUT')
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-flow-row md:grid-cols-2 gap-4">
             <div>
                 <div class=" w-100 bg-base-100 ">
-
-                    <figure>
                         <img class="rounded-md" class="search__photo" src="@if(@isset($user->avatar)){{ Storage::url('image/profile/thumbnail/'. $user->avatar) }}
                                      @else
                                     {{ Storage::url('image/no_image.png') }}
                                     @endif"
                              alt="UserPhoto"/>
-
-                    </figure>
                     <input type="file"
                            name="avatar"
                            class="file-input file-input-bordered w-full max-w-xs

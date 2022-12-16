@@ -21,13 +21,13 @@
                        class="input select-bordered col-start-2 col-end-5 @error('end_time') select-error @enderror"
                        placeholder="D"
                        value="{{ $shift->end_time }}">
-                <div class="flex flex-row mt-2 md:flex-col justify-center ">
+                <div class="flex flex-row mt-2 md:flex-col justify-center mt-5 md:mt-0">
                     <input type="checkbox" name="week" value="1"
                            @checked($shift->week == 1) class="checkbox @error('week') checkbox-error @enderror"/>
                     <p>Четная неделя</p>
                 </div>
 
-                <div>
+                <div class="mt-5 md:mt-0">
                     <button class="btn btn-accent">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                              xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@
                 </div>
 
             </form>
-            <div>Содержит пользователей:
+            <div class="mt-5">Содержит пользователей:
                 <div class="flex flex-col md:flex-row gap-4">
                     @foreach($shift->users as $user)
                         <div><a href="{{ route('admin.user.show', $user->id) }}">{{ $user->name }}</a></div>
@@ -78,13 +78,13 @@
                    class="input select-bordered col-start-2 col-end-5 @error('end_time') select-error @enderror"
                    step="1"
                    value="{{ old('end_time') }}">
-            <div class="flex flex-col justify-center ">
+            <div class="flex flex-col justify-center mt-5 md:mt-0">
                 <input type="checkbox" name="week" value="1"
                        @checked(old('week')) class="checkbox @error('week') checkbox-error @enderror"/>
                 <p>Четная неделя</p>
             </div>
 
-            <div>
+            <div class="mt-5 md:mt-0">
                 <button class="btn btn-accent">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                          xmlns="http://www.w3.org/2000/svg">

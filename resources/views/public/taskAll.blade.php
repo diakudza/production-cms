@@ -10,7 +10,7 @@
     @endif
     <div class="flex flex-col">
         @forelse($machines as $machine)
-            <div class="card border bg-base-100 shadow-xl mt-5 p-5 rounded-md">
+            <div class="card rounded-md shadow-xl mt-5 hover:bg-base-300 mt-5 p-5 rounded-md">
                 <p class="text-3xl">{{$machine->title}}</p>
 
                 <div class="grid grid-cols-4 mt-1">

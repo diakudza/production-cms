@@ -10,52 +10,50 @@
 
         @if(isset($result) && $result->count() && !isset($searchIndex))
 
-            <div id="sortable" class="table w-full table-zebra mt-10">
+            <div id="sortable" class="hidden md:grid grid-flow-col w-full mt-10 ">
+                <div>Превью</div>
+                <div class="w-15"><a class="jsLink" href="&sortBy=partNumber">Номер</a></div>
 
-                {{--                    <th class="w-15"><a class="jsLink" href="&sortBy=partNumber">Номер</a></th>--}}
-                {{--                    <th>Превью</th>--}}
-                {{--                    <th><a class="jsLink" href="&sortBy=partType_id">Тип</a></th>--}}
-                {{--                    <th><a class="jsLink" href="&sortBy=machine_id">Станок</a></th>--}}
-                {{--                    <th><a class="jsLink" href="&sortBy=user_id">Автор</a></th>--}}
-                {{--                    <th><a class="jsLink" href="&sortBy=material_id">Материал</a></th>--}}
-                {{--                    <th>Дата добавления</th>--}}
-
-                @foreach($result as $program)
-                    <a href="{{ route('program.show', ['program'=>$program->id]) }}">
-                    <div class="border rounded-md grid grid-cols-4 md:grid-cols-7 mt-1 ">
-                        <div class="w-10 md:w-20 " >
-                            <figure>
-                                <img class="rounded-md" class="search__photo" src="@if(@isset($program->partPhoto)){{ Storage::url('image/programs/thumbnail/'. $program->partPhoto) }}
+                <div><a class="jsLink" href="&sortBy=partType_id">Тип</a></div>
+                <div><a class="jsLink" href="&sortBy=machine_id">Станок</a></div>
+                <div><a class="jsLink" href="&sortBy=user_id">Автор</a></div>
+                <div><a class="jsLink" href="&sortBy=material_id">Материал</a></div>
+                <div>Дата добавления</div>
+            </div>
+            @foreach($result as $program)
+                <a href="{{ route('program.show', ['program'=>$program->id]) }}">
+                    <div class=" rounded-md grid grid-cols-4 hover:bg-base-300 shadow-xl md:grid-cols-7 mt-1 ">
+                        <div class="w-10 md:w-16 ">
+                                <img class="rounded-md h-10 md:h-16 "  src="@if(@isset($program->partPhoto)){{ Storage::url('image/programs/thumbnail/'. $program->partPhoto) }}
                                      @else
                                     {{ Storage::url('image/no_image.png') }}
                                     @endif"
                                      alt="Image"/>
-                            </figure>
                         </div>
 
-                        <div class="break-all truncate" title="{{ $program->partNumber }}">
+                        <span class="break-all truncate" title="{{ $program->partNumber }}">
                             {{ $program->partNumber }}
-                        </div>
+                        </span>
 
-                        <div>{{ $program->partType->title ?? 'Не указано' }}</div>
-                        <div>{{ $program->machine->title ?? 'Не указано' }} </div>
-                        <div class="hidden md:block">{{ $program->user->name ?? 'Не указано' }}</div>
-                        <div class="hidden md:block">
+                        <span>{{ $program->partType->title ?? 'Не указано' }}</span>
+                        <span>{{ $program->machine->title ?? 'Не указано' }} </span>
+                        <span class="hidden md:block">{{ $program->user->name ?? 'Не указано' }}</span>
+                        <span class="hidden md:block">
                             <div class="h-full flex gap-2">
                                 @isset($program->material->color)
                                     @include('components.materialColour' , ['color' => $program->material->color] )
                                 @endisset
                                 {{ $program->material->title ?? 'Не указано' }}
                             </div>
-                        </div>
-                        <div class="hidden md:block">{{ $program->created_at->format('Y-m-d') }}</div>
+                        </span>
+                        <span class="hidden md:block">{{ $program->created_at->format('Y-m-d') }}</span>
 
                     </div>
-                    </a>
-                @endforeach
-            </div>
+                </a>
+            @endforeach
 
-            {{$result->links()}}
+
+            <div class="mt-5">{{$result->links()}}</div>
 
         @elseif(isset($result) && !isset($searchIndex))
             <div class="grid justify-items-center mt-10 ">

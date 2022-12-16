@@ -5,18 +5,16 @@
 @section('content')
     <form action="{{ route('admin.machine.store') }}" method="POST" enctype="multipart/form-data">
         @csrf @method('POST')
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-flow-row md:grid-cols-2 gap-4">
             <div>
                 <div class=" w-100 bg-base-100 ">
-
-                    <figure>
                         <img class="rounded-md" class="search__photo"
                              src="{{ Storage::url('image/no_image.png') }}"
                              alt="MachinePhoto"/>
-                    </figure>
+
                     <input type="file"
                            name="machinePhoto"
-                           class="file-input file-input-bordered w-full max-w-xs
+                           class="file-input file-input-bordered w-full md:max-w-xs
                            @error('machinePhoto') file-input-error @enderror"/>
 
                 </div>
@@ -30,6 +28,7 @@
                     <input type="text" name="id"
                            class="select select-bordered  col-start-2 col-end-5 @error('tabNumber') select-error @enderror"
                            placeholder="0000"
+                           required
                            value="{{ old('id') }}">
                 </div>
 
@@ -40,6 +39,7 @@
                     <input type="text" name="title"
                            class="select select-bordered col-start-2 col-end-5 @error('name') select-error @enderror"
                            placeholder="Станок"
+                           required
                            value="{{ old('title') }}">
                 </div>
 

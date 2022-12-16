@@ -156,10 +156,11 @@
 
             </div>
 
-            <div class="relative v-50">
+            <div class="relative">
+                <p class="inline ">HEAD1</p>
                 <input type="text"
                        name="title_1"
-                       class="input input-bordered max-w-xs @error('title_1') input-error @enderror"
+                       class="input input-bordered  @error('title_1') input-error @enderror"
                        placeholder="Номер в формате O1111"
                        @disabled(!auth()->user() || !auth()->user()->can('update', $program))
                        pattern="[O]{1}[0-9]{4}"
@@ -184,13 +185,15 @@
                 </div>
 
                 <textarea id="programText1"
-                          class="textarea textarea-bordered w-full h-3/4 mt-1"
+                          class="textarea textarea-bordered w-full mt-1"
                           name="text_1"
+                          rows="25"
                           placeholder="Program text"
                     @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->text_1 }}</textarea>
             </div>
 
             <div class="relative">
+                <p class="inline ">HEAD2</p>
                 <input type="text"
                        name="title_2"
                        class="input input-bordered  max-w-xs @error('title_2') input-error @enderror"
@@ -216,8 +219,9 @@
                     </a>
                 </div>
                 <textarea id="programText2"
-                          class="textarea textarea-bordered w-full h-3/4 mt-1"
+                          class="textarea textarea-bordered w-full mt-1"
                           name="text_2"
+                          rows="25"
                           placeholder="Program text"
                     @readonly(!auth()->user() || !auth()->user()->can('update', $program))>{{ $program->text_2 }}</textarea>
             </div>

@@ -5,28 +5,25 @@
 @section('content')
     <form action="{{ route('admin.machine.update', $machine->id) }}" method="POST" enctype="multipart/form-data">
         @csrf @method('PUT')
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-flow-row md:grid-cols-2 gap-4">
             <div>
-                <div class=" w-100 bg-base-100 ">
+                <div class="w-100 bg-base-100 ">
 
-                    <figure>
-                        <img class="rounded-md" class="search__photo" src="@if(@isset($machine->machinePhoto)){{ Storage::url('image/machines/thumbnail/'. $machine->machinePhoto) }}
+                    <img class="rounded-md" class="search__photo" src="@if(@isset($machine->machinePhoto)){{ Storage::url('image/machines/thumbnail/'. $machine->machinePhoto) }}
                                      @else
                                     {{ Storage::url('image/no_image.png') }}
                                     @endif"
-                             alt="MachinePhoto"/>
+                         alt="MachinePhoto"/>
 
-                    </figure>
                     <input type="file"
                            name="machinePhoto"
                            class="file-input file-input-bordered w-full max-w-xs
                            @error('machinePhoto') file-input-error @enderror"/>
+
                     @if(@isset($machine->machinePhoto))
-                        <div class="grid grid-cols-4 ">
-                            <label class="label cursor-pointer">
-                                <span class="programm__edit">Убрать фото</span>
-                            </label>
+                        <div class="mt-5">
                             <input type="checkbox" name="machinePhotoDelete" class="checkbox" value="1"/>
+                            <span>Убрать фото</span>
                         </div>
                     @endif
                 </div>

@@ -7,7 +7,7 @@
 
         @include('components.tabtask')
         @forelse($machines as $machine)
-            <div class=" card border bg-base-100 shadow-xl mb-5 p-5 rounded-md">
+            <div class=" card rounded-md shadow-xl  hover:bg-base-300 mb-5 p-5 rounded-md">
                 <p id="{{$machine->id}}" class="text-3xl">{{$machine->title}}</p>
                 <div class="row-start-2 grid grid-cols-6 mt-1">
                     <div>Номер</div>

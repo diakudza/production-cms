@@ -31,7 +31,7 @@ class NewsController extends Controller
     {
         $news->fill($request->validated());
         $news->save();
-        return redirect()->back()->with('success', 'Оборудование добавлено!');
+        return redirect()->back()->with('success', 'Новость добавлена!');
     }
 
     public function update(NewsStoreRequest $request, News $news)

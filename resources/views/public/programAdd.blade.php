@@ -104,22 +104,24 @@
             </div>
 
             <div class="relative">
+                <p class="inline ">HEAD1</p>
                 <input type="text" name="title_1"
                        class="input input-bordered  max-w-xs @error('title_1') input-error @enderror"
                        placeholder="Номер в формате O1111"
                        pattern="[O]{1}[0-9]{4}"
                        value="{{ old('title_1')  }}">
-                <textarea id="programText1" class="textarea textarea-bordered w-full h-3/4 mt-1 "
-                          placeholder="Program code" name="text_1">{{ old('text_1') }}</textarea>
+                <textarea id="programText1" class="textarea textarea-bordered w-full mt-1 "
+                          placeholder="Program code" name="text_1" rows="21">{{ old('text_1') }}</textarea>
             </div>
             <div class="relative">
+                <p class="inline ">HEAD2</p>
                 <input type="text" name="title_2"
                        class="input input-bordered  max-w-xs @error('title_2') input-error @enderror"
                        placeholder="Номер в формате O1111"
                        pattern="[O]{1}[0-9]{4}"
                        value="{{ old('title_2')  }}">
-                <textarea id="programText2" class="textarea textarea-bordered w-full h-3/4 mt-1 "
-                          placeholder="Program code" name="text_2">{{ old('text_2') }}</textarea>
+                <textarea id="programText2" class="textarea textarea-bordered w-full  mt-1 "
+                          placeholder="Program code" name="text_2" rows="21">{{ old('text_2') }}</textarea>
             </div>
 
         </div>
