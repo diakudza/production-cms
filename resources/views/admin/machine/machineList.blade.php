@@ -16,7 +16,7 @@
 
     </div>
     @forelse($machines as $machine)
-        <div class="grid grid-flow-col hover:bg-base-300 shadow-xl mt-5 @if ($machine->repair) bg-red-900 @endif">
+        <div class="grid grid-flow-col hover:bg-base-300 shadow-xl mt-5 rounded-lg p-2 @if ($machine->repair) bg-red-900 @endif">
             <div>
                 <a href="{{route('admin.machine.show', $machine)}}">{{ $machine->id }} @if ($machine->repair)
                         <svg class="w-6 h-6 absolute " fill="none" stroke="currentColor" viewBox="0 0 24 24"

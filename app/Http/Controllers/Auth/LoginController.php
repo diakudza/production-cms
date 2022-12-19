@@ -5,19 +5,20 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\Login;
-use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param LoginRequest $request
-     * @return RedirectResponse
-     */
-    public function __invoke(LoginRequest $request): RedirectResponse
+    public function loginPage(Request $request): Factory|View|Application
+    {
+        return view('public.login');
+    }
+    public function login(LoginRequest $request): RedirectResponse
     {
         if (!Auth::attempt([
             'tabNumber' => $request->validated('tabNumber'),
@@ -38,7 +39,13 @@ class LoginController extends Controller
                 'success' => true]);
             return redirect()->intended()->with('success', 'Вы вошли!');
         }
+    }
 
-
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('home')->with(['success' => 'Вы вышли!']);
     }
 }

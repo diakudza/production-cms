@@ -9,7 +9,7 @@
         <div>Обозначение</div>
     </div>
     @foreach($partTypes as $partType)
-        <div class="flex flex-row w-full hover:bg-base-300 shadow-xl mt-5 bg-base-500 gap-3 align-middle">
+        <div class="flex flex-row w-full hover:bg-base-300 shadow-xl mt-5 bg-base-500 gap-3 align-middle rounded-lg p-3">
             <div class="w-10">{{$loop->iteration}}</div>
             <div class="flex w-full">
                 <form action="{{ route('admin.partType.update', $partType->id) }}" class="w-full flex gap-3" method="POST">

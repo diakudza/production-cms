@@ -18,7 +18,7 @@
 
             <a href="{{ route('admin.material.edit', $material->id) }}">
 
-            <div class="grid grid-flow-col h-10 hover:bg-base-300 shadow-xl mt-5 bg-base-500">
+            <div class="grid grid-flow-col h-10 hover:bg-base-300 shadow-xl mt-5 bg-base-500 rounded-lg p-1">
                 <div class="b w-10">{{$loop->iteration}}</div>
                 <div class="w-40">
                     <div>{{ $material->title }}</div>
