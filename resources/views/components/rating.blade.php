@@ -6,7 +6,7 @@
             <div class="radial-progress text-primary flex justify-center items-center"
                  style="--value:{{ $user['rating'] }};">
 
-                <figure>  <img class="w-24 rounded-full border"
+                <figure>  <img class="w-24 h-20 rounded-full border"
                      src="@if(@isset($user['avatar'])){{ Storage::url('image/profile/thumbnail/'. $user['avatar']) }}
                                     @else {{ Storage::url('image/no_image.png') }}  @endif"/></figure>
                 <span class="absolute indicator-item indicator-middle indicator-center badge badge-secondary">{{ $user['rating'] }}%</span>

@@ -9,7 +9,7 @@
                 </svg>
             </label>
             <ul tabindex="0"
-                class="menu  dropdown-content mt-3 w-full absolute bg-base-100 gap-2 pb-3">
+                class="menu  dropdown-content mt-3 w-[96%] absolute bg-base-100 gap-2 pb-3 pr-3">
                 @if(request()->route()->getPrefix() == '/admin')
                     @include('components.navLinkAdmin')
                 @else

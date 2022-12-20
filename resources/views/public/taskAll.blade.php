@@ -26,7 +26,7 @@
                             $diff = Carbon::now()->diffInDays(Carbon::parse($task->date), false)
                         @endphp
                         <div class="grid grid-cols-4 mt-1 @if ($diff < 0) bg-red-900 @endif">
-                            <div class="overflow-hidden break-after-column">{{ $task->partNumber }}
+                            <div class="overflow-hidden break-after-column"><a href="{{route('search.part', ['partNumber'=>$task->partNumber])}}">{{ $task->partNumber }}</a>
                                 @if($task->inWork)
                                     <span class="hidden bg-green-700 rounded-md md:inline">В работе</span>
                                 @endif
