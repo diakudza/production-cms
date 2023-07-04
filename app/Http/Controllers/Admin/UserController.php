@@ -65,24 +65,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(UserUpdateRequest $request, User $user, ImageAction $imageAction)
+    public function update(UserUpdateRequest $request, User $user)
     {
-        $validated = $request->validated();
+        $this->userService->store($user, $request->validated());
 
-        if (isset($validated['avatar'])) {
-            $validated['avatar'] = $imageAction($validated['avatar'], 'profile', 400, 400);
-        }
-        if (isset($validated['avatarDelete'])) {
-            $validated['avatar'] = null;
-        }
-        $user->update($validated);
-        $user->save();
         return redirect()->back()->with('success', 'Пользователь обновлен!');
     }
 
     public function destroy(User $user)
     {
-        \Log::info('TEST');
         $user->delete();
         return redirect()->route('admin.user.index')->with('success', 'Пользователь успешно удален');
     }
