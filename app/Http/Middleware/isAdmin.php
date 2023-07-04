@@ -16,7 +16,7 @@ class isAdmin
      * @param  \Closure(Request): (Response|RedirectResponse)  $next
      * @return Response|RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
         if (\auth()->check() && \auth()->user()->isAdmin()) {
             return $next($request);

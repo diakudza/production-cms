@@ -10,6 +10,7 @@ use App\Models\Material;
 use App\Models\PartType;
 use App\Models\Program;
 use App\Models\User;
+use App\Services\ProgramService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,13 +20,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProgramController extends Controller
 {
-    /**
-     * Создать экземпляр контроллера.
-     *
-     * @return void
-     */
-    public function __construct()
+    private ProgramService $programService;
+
+    public function __construct(ProgramService $programService,)
     {
+        $this->programService = $programService;
         $this->authorizeResource(Program::class, 'program');
     }
 
@@ -88,13 +87,8 @@ class ProgramController extends Controller
 
     public function getProgram(Program $program, int $n): StreamedResponse
     {
-        Storage::deleteDirectory('/programs/' . $program->machine_id);
-        $filename = 'title_' . $n;
-        $filename = $program->$filename;
-        $content = 'text_' . $n;
-        $content = $program->$content;
-        Storage::makeDirectory('/programs/' . $program->machine_id);
-        Storage::disk('local')->put('/programs/' . $program->machine_id . '/' . $filename, $content);
+        $filename = $this->programService->makeProgramFile($program, $n);
+
         return Storage::download('/programs/' . $program->machine_id . '/' . $filename);
     }
 

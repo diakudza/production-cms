@@ -49,8 +49,4 @@ class Program extends Model
         return $this->belongsTo(Material::class);
     }
 
-    public function getLastPrograms(int $count)
-    {
-        return $this->OrderBy('created_at', 'desc')->with('user')->limit($count)->get();
-    }
 }

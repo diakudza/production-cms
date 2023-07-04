@@ -14,6 +14,5 @@ class MainController extends Controller
     public function __invoke(Program $program): Factory|View|Application
     {
         return view('admin.index');
-
     }
 }

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function loginPage(Request $request): Factory|View|Application
+    public function loginPage(): Factory|View|Application
     {
         return view('public.login');
     }
