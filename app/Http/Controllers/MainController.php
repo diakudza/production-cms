@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use App\Repositories\ProgramRepository;
 use Illuminate\Contracts\Foundation\Application;
 
-class MainController extends Controller
+final class MainController extends Controller
 {
     private readonly NewsRepository $newsRepository;
     private readonly ProgramRepository $programRepository;

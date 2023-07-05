@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\SearchAction;
-use App\Http\Requests\SearchProgramRequest;
+use App\Models\User;
 use App\Models\Machine;
 use App\Models\PartType;
-use App\Models\User;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use App\Actions\SearchAction;
 use Illuminate\Contracts\View\View;
+use Illuminate\Contracts\View\Factory;
+use App\Http\Requests\SearchProgramRequest;
+use Illuminate\Contracts\Foundation\Application;
 
 
-class SearchController extends Controller
+final class SearchController extends Controller
 {
     public function index(): Factory|View|Application
     {

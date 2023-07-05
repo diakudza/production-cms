@@ -8,7 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 
-class LogController extends Controller
+final class LogController extends Controller
 {
     public function __invoke(): Factory|View|Application
     {

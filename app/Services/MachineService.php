@@ -4,10 +4,11 @@ namespace App\Services;
 
 
 use App\Actions\ImageAction;
+use App\Models\Machine;
 use App\Models\Program;
 use Illuminate\Support\Facades\Storage;
 
-final class ProgramService
+final class MachineService
 {
     private ImageAction $imageAction;
 
@@ -28,27 +29,24 @@ final class ProgramService
         return $filename;
     }
 
-    public function store(Program $program, array $validated): bool
+    public function store(Machine $machine, array $validated): bool
     {
-        $imageAction = $this->imageAction;
-
-        if (isset($validated['partPhoto'])) {
-            $validated['partPhoto'] = $imageAction($validated['partPhoto'], 'programs');
-        }
-
-        $program->fill($validated);
-        return $program->save();
+        $machine->fill($validated);
+        return $machine->save();
     }
 
-    public function update(Program $program, array $validated): bool
+    public function update(Machine $machine, array $validated): bool
     {
         $imageAction = $this->imageAction;
-        if (isset($validated['partPhoto'])) {
-            $validated['partPhoto'] = $imageAction($validated['partPhoto'], 'programs');
+        $validated['repair'] = $validated['repair'] ?? 0;
+        if (isset($validated['machinePhoto'])) {
+            $validated['machinePhoto'] = $imageAction($validated['machinePhoto'], 'machines', 400, 400);
         }
+        if (isset($validated['machinePhotoDelete'])) {
+            $validated['machinePhoto'] = null;
+        }
+        $machine->update($validated);
 
-        $program->update($validated);
-
-        return $program->save();
+        return $machine->save();
     }
 }

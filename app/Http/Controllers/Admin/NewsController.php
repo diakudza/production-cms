@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\MachineStoreRequest;
-use App\Http\Requests\Admin\NewsStoreRequest;
+use Throwable;
 use App\Models\News;
-use Illuminate\Http\Request;
+use App\Services\NewsService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\NewsStoreRequest;
 
-class NewsController extends Controller
+final class NewsController extends Controller
 {
+    private readonly NewsService $newsService;
+
+    public function __construct(
+        NewsService $newsService,
+    ) {
+        $this->newsService = $newsService;
+    }
 
     public function index()
     {
@@ -23,26 +30,26 @@ class NewsController extends Controller
         return view('admin.news.newsEdit', ['news' => $news]);
     }
 
-    public function create(News $news)
+    public function create()
     {
-        return view('news.newsAdd');
+        return view('admin.news.newsAdd');
     }
+
     public function store(NewsStoreRequest $request, News $news)
     {
-        $news->fill($request->validated());
-        $news->save();
+        $this->newsService->store($news, $request->validated());
         return redirect()->back()->with('success', 'Новость добавлена!');
     }
 
     public function update(NewsStoreRequest $request, News $news)
     {
-        $validated = $request->validated();
-        $validated['public'] = $validated['public'] ?? 0;
-        $news->update($validated);
-        $news->save();
+        $this->newsService->update($news, $request->validated());
         return redirect()->back()->with('success', 'Новость обновлена!');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function destroy(News $news)
     {
         $news->deleteOrFail();

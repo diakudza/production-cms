@@ -11,7 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
-class PartTypeController extends Controller
+final class PartTypeController extends Controller
 {
     private PartTypeService $partTypeService;
     private PartTypeRepository $partTypeRepository;

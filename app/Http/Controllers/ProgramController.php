@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\ImageAction;
-use App\Http\Requests\ProgramStoreRequest;
-use App\Http\Requests\ProgramUpdateRequest;
+use App\Models\User;
 use App\Models\Machine;
+use App\Models\Program;
 use App\Models\Material;
 use App\Models\PartType;
-use App\Models\Program;
-use App\Models\User;
 use App\Services\ProgramService;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ProgramStoreRequest;
+use App\Http\Requests\ProgramUpdateRequest;
+use Illuminate\Contracts\Foundation\Application;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ProgramController extends Controller
+final class ProgramController extends Controller
 {
     private ProgramService $programService;
 
-    public function __construct(ProgramService $programService,)
+    public function __construct(ProgramService $programService)
     {
         $this->programService = $programService;
         $this->authorizeResource(Program::class, 'program');
@@ -37,23 +36,15 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function store(ProgramStoreRequest $request, Program $program, ImageAction $imageAction): RedirectResponse
+    public function store(ProgramStoreRequest $request, Program $program): RedirectResponse
     {
-        $validated = $request->validated();
-
-        if (isset($validated['partPhoto'])) {
-            $validated['partPhoto'] = $imageAction($validated['partPhoto'], 'programs');
-        }
-
-        $program->fill($validated)->save();
-
+        $this->programService->store($program, $request->validated());
         return redirect()->route('program.show', $program->id);
     }
 
     public function show(Program $program): Factory|View|Application
     {
-
-        session()->put('viewed.'.$program->id , $program->partNumber);
+        session()->put('viewed.' . $program->id, $program->partNumber);
 
         return view('public.programSingle', [
             'program' => $program,
@@ -64,16 +55,9 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function update(ProgramUpdateRequest $request, ImageAction $imageAction, Program $program): RedirectResponse
+    public function update(ProgramUpdateRequest $request, Program $program): RedirectResponse
     {
-        $validated = $request->validated();
-
-        if (isset($validated['partPhoto'])) {
-            $validated['partPhoto'] = $imageAction($validated['partPhoto'], 'programs');
-        }
-
-        $program->update($validated);
-        $program->save();
+        $this->programService->update($program, $request->validated());
         return redirect()->back()->with('success', 'Программа обновлена!');
     }
 

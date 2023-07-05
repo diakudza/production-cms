@@ -3,16 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use App\Enums\UserRole;
 use App\Enums\UserStatus;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -111,10 +110,9 @@ class User extends Authenticatable
             $date = auth()->user()->dateOfDismissal;
         }
 
-        $difference = ($created->diff($date)->days < 1)
+        return ($created->diff($date)->days < 1)
             ? '0'
             : $created->diffInDays($date);
-        return $difference;
     }
 
 }

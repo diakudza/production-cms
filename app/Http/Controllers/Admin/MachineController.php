@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Actions\ImageAction;
+use Throwable;
+use App\Models\Machine;
+use App\Services\MachineService;
 use App\Http\Controllers\Controller;
+use App\Repositories\ProgramRepository;
 use App\Http\Requests\Admin\MachineStoreRequest;
 use App\Http\Requests\Admin\MachineUpdateRequest;
-use App\Models\Machine;
-use App\Models\Program;
-use Illuminate\Http\Request;
 
-class MachineController extends Controller
+final class MachineController extends Controller
 {
+    private readonly ProgramRepository $programRepository;
+    private readonly MachineService $machineService;
+
+    public function __construct(
+        ProgramRepository $programRepository,
+        MachineService $machineService
+    ) {
+        $this->programRepository = $programRepository;
+        $this->machineService = $machineService;
+    }
+
     public function index()
     {
         return view('admin.machine.machineList', [
@@ -26,42 +37,39 @@ class MachineController extends Controller
 
     public function store(MachineStoreRequest $request, Machine $machine)
     {
-        $machine->fill($request->validated());
-        $machine->save();
-        return redirect()->route('admin.machine.index')->with('success', 'Оборудование добавлено!');
+        $this->machineService->store($machine, $request->validated());
+        return redirect()
+            ->route('admin.machine.index')
+            ->with('success', 'Оборудование добавлено!');
     }
 
     public function show(Machine $machine)
     {
-
-        $programs = Program::with(['user', 'machine'])
-            ->whereRelation('machine', 'id', '=', $machine->id)
-            ->get();
+        $programs = $this->programRepository->getProgramsForMachine($machine->id);
 
         return view('admin.machine.machineSingle', [
             'machine' => $machine,
             'programs' => $programs,
-            ]);
+        ]);
     }
 
-    public function update(MachineUpdateRequest $request, Machine $machine, ImageAction $imageAction)
+    public function update(MachineUpdateRequest $request, Machine $machine)
     {
-        $validated = $request->validated();
-        $validated['repair'] = $validated['repair'] ?? 0;
-        if (isset($validated['machinePhoto'])) {
-            $validated['machinePhoto'] = $imageAction($validated['machinePhoto'], 'machines', 400, 400);
-        }
-        if (isset($validated['machinePhotoDelete'])) {
-            $validated['machinePhoto'] = null;
-        }
-        $machine->update($validated);
-        $machine->save();
-        return redirect()->route('admin.machine.show', $machine->id)->with('success', 'Оборудование обновлено!');
+        $this->machineService->update($machine, $request->validated());
+
+        return redirect()
+            ->route('admin.machine.show', $machine->id)
+            ->with('success', 'Оборудование обновлено!');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function destroy(Machine $machine)
     {
         $machine->deleteOrFail();
-        return redirect()->route('admin.machine.index')->with('success', 'Оборудование удалено!');
+        return redirect()
+            ->route('admin.machine.index')
+            ->with('success', 'Оборудование удалено!');
     }
 }

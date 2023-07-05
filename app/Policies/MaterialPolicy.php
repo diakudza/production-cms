@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Enums\UserRole;
 use App\Models\Material;
+use App\Models\Program;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -54,7 +55,7 @@ class MaterialPolicy
      * @param Material $material
      * @return Response|bool
      */
-    public function update(User $user, Material $material): Response|bool
+    public function update(User $user, Material $material, Program $program): Response|bool
     {
         return auth()->user()->isAdmin() || auth()->user()->id == $program->user_id;
     }

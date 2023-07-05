@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Throwable;
+use App\Models\Position;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PositionStoreRequest;
-use App\Models\Position;
-use Illuminate\Http\Request;
 
-class PositionController extends Controller
+final class PositionController extends Controller
 {
 
     public function index()
@@ -31,10 +31,12 @@ class PositionController extends Controller
         return redirect()->back()->with('success', 'Должность обновлена!');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function destroy(Position $position)
     {
         $position->deleteOrFail();
-
         return redirect()->back()->with('success', 'Должность удалена!');
     }
 }

@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Throwable;
+use App\Models\Material;
+use App\Services\MaterialService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\MaterialStoreRequest;
-use App\Http\Requests\Admin\ShiftStoreRequest;
-use App\Http\Requests\Admin\ShiftUpdateRequest;
-use App\Models\Material;
-use App\Models\Shift;
-use Illuminate\Http\Request;
 
-class MaterialController extends Controller
+final class MaterialController extends Controller
 {
+    private readonly MaterialService $materialService;
+
+    public function __construct(
+        MaterialService $materialService,
+    ) {
+        $this->materialService = $materialService;
+    }
     public function index()
     {
         return view('admin.materialList', [
@@ -34,29 +39,28 @@ class MaterialController extends Controller
 
     public function store(MaterialStoreRequest $request, Material $material)
     {
-        $validated = $request->validated();
-        if ($validated['color'] && $validated['colorAdd']) {
-            $validated['color'] = $validated['color'] . ',' . $validated['colorAdd'];
-        }
-        $material->fill($validated);
-        $material->save();
-        return redirect()->route('admin.material.index')->with('success', "Материал $material->title добавлен");
+        $this->materialService->store($material, $request->validated() );
+
+        return redirect()
+            ->route('admin.material.index')
+            ->with('success', "Материал $material->title добавлен");
     }
 
     public function update(MaterialStoreRequest $request, Material $material)
     {
-        $validated = $request->validated();
-        if ($validated['color'] && $validated['colorAdd']) {
-            $validated['color'] = $validated['color'] . ',' . $validated['colorAdd'];
-        }
-        $material->update($validated);
-        $material->save();
+        $this->materialService->update($material, $request->validated());
+
         return redirect()->back()->with('success', 'Материал обновлен!');
     }
 
+    /**
+     * @throws Throwable
+     */
     public function destroy(Material $material)
     {
         $material->deleteOrFail();
-        return redirect()->route('admin.material.index')->with('success', 'Материал удален!');
+        return redirect()
+            ->route('admin.material.index')
+            ->with('success', 'Материал удален!');
     }
 }

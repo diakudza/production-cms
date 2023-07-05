@@ -15,4 +15,11 @@ final class ProgramRepository
             ->limit($count)
             ->get();
     }
+
+    public function getProgramsForMachine(int $machineId): Collection|array
+    {
+        return Program::with(['user', 'machine'])
+            ->whereRelation('machine', 'id', '=', $machineId)
+            ->get();
+    }
 }
