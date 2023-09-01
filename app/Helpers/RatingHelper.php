@@ -4,8 +4,8 @@ namespace App\Helpers;
 
 
 use App\Models\Program;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class RatingHelper
 {
@@ -20,13 +20,14 @@ class RatingHelper
 
     public function getQuery(): Collection|array
     {
-        $query = Program::query()
-            ->join('users', 'users.id', '=', 'programs.user_id')
-            ->selectRaw('count(user_id) as count, users.name, users.avatar, user_id')
-            ->groupBy('user_id')
-            ->orderByDesc('count')
-            ->get();
-        return $query;
+        return Cache::remember('top_programs', 1800, function () {
+            return Program::query()
+                ->join('users', 'users.id', '=', 'programs.user_id')
+                ->selectRaw('count(user_id) as count, users.name, users.avatar, user_id')
+                ->groupBy('user_id')
+                ->orderByDesc('count')
+                ->get();
+        });
     }
 
     public function makeFillList(): void
@@ -49,6 +50,7 @@ class RatingHelper
         Cache::remember('ProgramCount', 10, function () {
             return Program::query()->get()->count();
         });
+
         return Cache::get('ProgramCount');
     }
 }

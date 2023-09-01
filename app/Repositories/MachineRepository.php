@@ -3,10 +3,17 @@
 namespace App\Repositories;
 
 use App\Models\Machine;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Collection;
 
 final class MachineRepository
 {
+    public function getAllMachines()
+    {
+        return Cache::remember('all_machines', 1800, function () {
+            return Machine::all();
+        });
+    }
     public function getMachineWithActiveTask(): Collection
     {
         return Machine::query()

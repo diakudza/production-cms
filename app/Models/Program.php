@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,21 +14,22 @@ class Program extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'partNumber',
-        'machine_id',
-        'user_id',
-        'partType_id',
-        'material_id',
-        'materialType',
-        'title_1',
-        'title_2',
-        'text_1',
-        'text_2',
-        'partPhoto',
-        'materialDiameter',
-        'description',
-    ];
+    protected $fillable
+        = [
+            'partNumber',
+            'machine_id',
+            'user_id',
+            'partType_id',
+            'material_id',
+            'materialType',
+            'title_1',
+            'title_2',
+            'text_1',
+            'text_2',
+            'partPhoto',
+            'materialDiameter',
+            'description',
+        ];
 
 
     public function user(): BelongsTo
@@ -50,4 +52,14 @@ class Program extends Model
         return $this->belongsTo(Material::class);
     }
 
+    public function scopeFilter(Builder $builder, array $list): Builder
+    {
+        foreach ($list as $filter) {
+            if (request()->has($filter->name)) {
+                $filter->query($builder, $filter->colName, request()->input($filter->name));
+            }
+        }
+
+        return $builder;
+    }
 }

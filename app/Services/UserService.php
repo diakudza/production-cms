@@ -36,6 +36,7 @@ final class UserService
             $validated['avatar'] = null;
         }
         $user->update($validated);
+
         return $user->save();
     }
 }

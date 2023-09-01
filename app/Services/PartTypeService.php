@@ -11,6 +11,7 @@ final class PartTypeService
         $partType = new PartType();
         $partType->fill($data);
         $result = $partType->save();
+
         return $result ? $partType : false;
     }
 

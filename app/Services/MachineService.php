@@ -3,9 +3,9 @@
 namespace App\Services;
 
 
-use App\Actions\ImageAction;
 use App\Models\Machine;
 use App\Models\Program;
+use App\Actions\ImageAction;
 use Illuminate\Support\Facades\Storage;
 
 final class MachineService
@@ -26,12 +26,14 @@ final class MachineService
         $content = $program->$content;
         Storage::makeDirectory('/programs/' . $program->machine_id);
         Storage::disk('local')->put('/programs/' . $program->machine_id . '/' . $filename, $content);
+
         return $filename;
     }
 
     public function store(Machine $machine, array $validated): bool
     {
         $machine->fill($validated);
+
         return $machine->save();
     }
 

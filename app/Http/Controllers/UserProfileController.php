@@ -14,16 +14,12 @@ use Illuminate\Contracts\Foundation\Application;
 
 final class UserProfileController extends Controller
 {
-    private UserProfileRepository $userProfileRepository;
-    private UserProfileService $userProfileService;
-
     public function __construct(
-        UserProfileRepository $userProfileRepository,
-        UserProfileService $userProfileService
+        private readonly UserProfileRepository $userProfileRepository,
+        private readonly UserProfileService $userProfileService
     ) {
-        $this->userProfileRepository = $userProfileRepository;
-        $this->userProfileService = $userProfileService;
     }
+
     public function index(): Factory|View|Application
     {
         $programs = $this->userProfileRepository->userPrograms(auth()->id());
@@ -38,7 +34,8 @@ final class UserProfileController extends Controller
 
     public function update(UserProfileUpdateRequest $request, User $user, Theme $theme): RedirectResponse
     {
-        $this->userProfileService->update($user,$theme, $request->validated());
+        $this->userProfileService->update($user, $theme, $request->validated());
+
         return redirect()->back()->with('success', 'Профиль обновлен');
     }
 }

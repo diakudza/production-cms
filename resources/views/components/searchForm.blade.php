@@ -1,34 +1,9 @@
 <form action="{{route('search.part')}}" class="card w-full bg-base-100 shadow-xl">
     <div class="grid sm:grid-col-1 md:grid-cols-6 gap-4 p-2">
-        <input type="text" placeholder="Номер детали" name="partNumber" class="input input-bordered md:w-full "
-               value="{{ request('partNumber') }}"/>
-        <select class="select select-bordered md:w-full" name="machine_id">
-            <option disabled selected>По станку</option>
-            <option value="">Не учитывать</option>
-            @foreach ($machines as $machine)
-                <option value="{{ $machine->id }}" @selected(request('machine_id') == $machine->id)>
-                    {{ $machine->title }}
-                </option>
-            @endforeach
-        </select>
 
-        <select class="select select-bordered md:w-full" name="author">
-            <option disabled selected>По автору</option>
-            <option value="">Не учитывать</option>
-            @foreach ($authors as $author)
-                <option value="{{ $author->id }}"@selected(request('author') == $author->id)>{{ $author->name }}</option>
-            @endforeach
-        </select>
-
-        <select class="select select-bordered md:w-full" name="partType">
-            <option disabled selected>По типу</option>
-            <option value="">Не учитывать</option>
-            @foreach($partTypes as $partType)
-                <option value="{{ $partType->id }}" @selected(request('partType') == $partType->id)>
-                    {{ $partType->title }}
-                </option>
-            @endforeach
-        </select>
+        @foreach($filters as $filter)
+            {!! $filter->render() !!}
+        @endforeach
 
         <select class="select select-bordered md:w-full" name="itemOnPage">
             <option disabled selected>Выводить по</option>

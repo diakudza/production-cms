@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Theme;
 use App\Models\User;
+use App\Models\Theme;
 
 final class UserProfileService
 {
@@ -15,6 +15,7 @@ final class UserProfileService
         \cache(['theme_id_' . auth()->user()->id => $theme->id], 600);
 
         $user->update($validated);
+
         return $user->save();
     }
 }

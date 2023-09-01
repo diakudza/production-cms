@@ -1,5 +1,4 @@
-
-<input type="checkbox" id="my-modal" class="modal-toggle" />
+<input type="checkbox" id="my-modal" class="modal-toggle"/>
 <div class="modal">
     <div class="modal-box relative">
         <label for="my-modal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>

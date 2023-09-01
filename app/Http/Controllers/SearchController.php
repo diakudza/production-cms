@@ -2,35 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Machine;
-use App\Models\PartType;
-use App\Actions\SearchAction;
 use Illuminate\Contracts\View\View;
+use App\Repositories\UserRepository;
 use Illuminate\Contracts\View\Factory;
+use App\Repositories\ProgramRepository;
+use App\Repositories\PartTypeRepository;
+use App\Repositories\MaterialRepository;
 use App\Http\Requests\SearchProgramRequest;
 use Illuminate\Contracts\Foundation\Application;
 
 
 final class SearchController extends Controller
 {
-    public function index(): Factory|View|Application
-    {
-        return view('public.search', [
-            'authors' => (new User)->getAdjusterOnly(),
-            'machines' => Machine::all(),
-            'partTypes' => PartType::all(),
-            'searchIndex' => true,
-        ]);
+    public function __construct(
+        private readonly ProgramRepository $programRepository,
+        private readonly PartTypeRepository $partTypeRepository,
+        private readonly MaterialRepository $materialRepository,
+        private readonly UserRepository $userRepository,
+    ) {
     }
 
-    public function search(SearchProgramRequest $request, SearchAction $search): Factory|View|Application
+    public function index(): Factory|View|Application
     {
-        return view('public.search', [
-            'result' => $search($request->validated()),
-            'authors' => (new User)->getAdjusterOnly(),
-            'machines' => Machine::all(),
-            'partTypes' => PartType::all(),
-        ]);
+        $filters = $this->programRepository->getFiltersForSearch();
+        $authors = $this->userRepository->getAdjusterOnly();
+        $partTypes = $this->partTypeRepository->getAllPartType();
+        $materials = $this->materialRepository->getAllMaterial();
+        $searchIndex = true;
+
+        return view('public.search', compact('filters', 'authors', 'partTypes', 'materials', 'searchIndex'));
+    }
+
+    public function search(SearchProgramRequest $request): Factory|View|Application
+    {
+        return view(
+            'public.search',
+            [
+                'result' => $this->programRepository->getFilteredPrograms($request->get('itemOnPage')),
+                'filters' => $this->programRepository->getFiltersForSearch(),
+            ]
+        );
     }
 }

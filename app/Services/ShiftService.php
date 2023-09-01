@@ -10,6 +10,7 @@ final class ShiftService
     public function store(Shift $shift, array $validated): bool
     {
         $shift->fill($validated);
+
         return $shift->save();
     }
 
@@ -17,6 +18,7 @@ final class ShiftService
     {
         $validated['week'] = $validated['week'] ?? 0;
         $shift->update($validated);
+
         return $shift->save();
     }
 }

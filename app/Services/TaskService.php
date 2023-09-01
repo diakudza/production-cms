@@ -3,8 +3,8 @@
 namespace App\Services;
 
 
-use App\Models\Task;
 use Carbon\Carbon;
+use App\Models\Task;
 
 final class TaskService
 {
@@ -15,7 +15,7 @@ final class TaskService
         return $task->fill($data)->save();
     }
 
-    public function update(Task $task, array $data)
+    public function update(Task $task, array $data): void
     {
         if (empty($data['inWork'])) {
             $data['inWork'] = 0;

@@ -1,9 +1,7 @@
+@forelse ($news as $singleNews)
 
-
-
-    @forelse ($news as $singleNews)
-
-        @if(auth()->check() && auth()->user()->can('update', $singleNews))<a href="{{ route('news.edit', $singleNews->id) }}">@endif
+    @if(auth()->check() && auth()->user()->can('update', $singleNews))<a
+            href="{{ route('news.edit', $singleNews->id) }}">@endif
 
         <div class="mb-5 mt-5">
             <div class="indicator">
@@ -19,7 +17,7 @@
             <div class="w-full">{{ $singleNews->text }}</div>
             <div>{{ $singleNews->user->name }} {{ $singleNews->created_at->format('Y-m-d') }}</div>
         </div>
-        </a>
+    </a>
     @empty
         <div>Пока еще нет новостей!</div>
     @endforelse

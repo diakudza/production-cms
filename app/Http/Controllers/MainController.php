@@ -12,15 +12,10 @@ use Illuminate\Contracts\Foundation\Application;
 
 final class MainController extends Controller
 {
-    private readonly NewsRepository $newsRepository;
-    private readonly ProgramRepository $programRepository;
-
     public function __construct(
-        NewsRepository $newsRepository,
-        ProgramRepository $programRepository
+        private readonly NewsRepository $newsRepository,
+        private readonly ProgramRepository $programRepository
     ) {
-        $this->newsRepository = $newsRepository;
-        $this->programRepository = $programRepository;
     }
 
     public function __invoke(Program $program, RatingHelper $rating): Factory|View|Application
@@ -28,7 +23,7 @@ final class MainController extends Controller
         return view('public.index', [
             'programs' => $this->programRepository->getLastPrograms(10),
             'news' => $this->newsRepository->getLastNews(4),
-            'rating' => $rating->list
+            'rating' => $rating->list,
         ]);
     }
 }

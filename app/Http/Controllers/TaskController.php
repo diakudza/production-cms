@@ -14,15 +14,10 @@ use Illuminate\Contracts\Foundation\Application;
 
 final class TaskController extends Controller
 {
-    private MachineRepository $machineRepository;
-    private TaskService $taskService;
-
     public function __construct(
-        MachineRepository $machineRepository,
-        TaskService $taskService
+        private readonly MachineRepository $machineRepository,
+        private readonly TaskService $taskService
     ) {
-        $this->machineRepository = $machineRepository;
-        $this->taskService = $taskService;
     }
 
     public function index(): Application|Factory|View
@@ -75,6 +70,7 @@ final class TaskController extends Controller
     public function destroy(string $taskStatus, Task $task): RedirectResponse
     {
         $task->deleteOrFail();
+
         return redirect()
             ->route('task.show', $taskStatus)
             ->with('success', 'Задание удалено!');

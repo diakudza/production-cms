@@ -35,15 +35,15 @@
                             {{ $program->partNumber }}
                         </span>
 
-                        <span>{{ $program->partType->title ?? 'Не указано' }}</span>
-                        <span>{{ $program->machine->title ?? 'Не указано' }} </span>
-                        <span class="hidden md:block">{{ $program->user->name ?? 'Не указано' }}</span>
+                        <span>{{ $program->partType?->title }}</span>
+                        <span>{{ $program->machine?->title }} </span>
+                        <span class="hidden md:block">{{ $program->user?->name }}</span>
                         <span class="hidden md:block">
                             <div class="h-full flex gap-2">
-                                @isset($program->material->color)
-                                    @include('components.materialColour' , ['color' => $program->material->color] )
+                                @isset($program->material?->color)
+                                    @include('components.materialColour' , ['color' => $program->material?->color] )
                                 @endisset
-                                {{ $program->material->title ?? 'Не указано' }}
+                                {{ $program->material?->title }}
                             </div>
                         </span>
                         <span class="hidden md:block">{{ $program->created_at->format('Y-m-d') }}</span>

@@ -3,8 +3,8 @@
 namespace App\Services;
 
 
-use App\Actions\ImageAction;
 use App\Models\Program;
+use App\Actions\ImageAction;
 use Illuminate\Support\Facades\Storage;
 
 final class ProgramService
@@ -25,6 +25,7 @@ final class ProgramService
         $content = $program->$content;
         Storage::makeDirectory('/programs/' . $program->machine_id);
         Storage::disk('local')->put('/programs/' . $program->machine_id . '/' . $filename, $content);
+
         return $filename;
     }
 
@@ -37,6 +38,7 @@ final class ProgramService
         }
 
         $program->fill($validated);
+
         return $program->save();
     }
 
